@@ -1,9 +1,20 @@
+#include <stdlib.h>
+
 #include "lista.h"
 
 lista_t* lista_crear() {
-    return NULL;
+
+    lista_t* lista = malloc(sizeof(lista_t));
+
+    if (!lista)
+        return NULL;
+
+    lista->nodo_inicio = NULL;
+    lista->nodo_fin = NULL;
+    lista->cantidad = 0;
+
+    return lista;
 }
-lista_t* lista_crear();
 
 int lista_insertar(lista_t* lista, void* elemento) {
     return 0;
@@ -14,6 +25,33 @@ int lista_insertar_en_posicion(lista_t* lista, void* elemento, size_t posicion) 
 }
 
 int lista_borrar(lista_t* lista) {
+    if (!lista)
+        return -1;
+
+    if (lista_vacia(lista))
+        return -1;
+
+    size_t contador = 0;
+    nodo_t* nodo = lista->nodo_inicio;
+
+    // se tiene que modificar porque va a funcionar mal si hay dos nodos
+
+    while (contador < lista->cantidad - 2) {
+        nodo = nodo->siguiente;
+        contador ++;
+    }
+
+    free(lista->nodo_fin);
+    if (lista->cantidad == 1) {
+        lista->nodo_inicio = NULL;
+        lista->nodo_fin = NULL;
+    } else {
+        lista->nodo_fin = nodo->siguiente;
+        lista->nodo_fin->siguiente = NULL;
+    }
+
+    lista->cantidad--;
+
     return 0;
 }
 
@@ -30,7 +68,13 @@ void* lista_ultimo(lista_t* lista){
 }
 
 bool lista_vacia(lista_t* lista){
-    return true;
+    if (!lista)
+        return true;
+
+    if (lista->cantidad == 0)
+        return true;
+
+    return false;
 }
 
 size_t lista_elementos(lista_t* lista) {
@@ -61,7 +105,18 @@ void* lista_primero(lista_t* lista) {
     return NULL;
 }
 
-void lista_destruir(lista_t* lista) {}
+void lista_destruir(lista_t* lista) {
+    if (!lista)
+        return;
+
+    if (lista->cantidad == 0) {
+        free(lista);
+        return;
+    }
+
+    lista_borrar(lista);
+    lista_destruir(lista);
+}
 
 lista_iterador_t* lista_iterador_crear(lista_t* lista) {
     return NULL;
