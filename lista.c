@@ -31,26 +31,25 @@ int lista_borrar(lista_t* lista) {
     if (lista_vacia(lista))
         return -1;
 
-    size_t contador = 0;
     nodo_t* nodo = lista->nodo_inicio;
 
-    // se tiene que modificar porque va a funcionar mal si hay dos nodos
+    free(lista->nodo_fin);
+    lista->cantidad--;
 
-    while (contador < lista->cantidad - 2) {
-        nodo = nodo->siguiente;
+    if (lista_vacia(lista)) {
+        lista->nodo_inicio = NULL;
+        lista->nodo_fin = NULL;
+        return 0;
+    }
+
+    size_t contador = 0;
+
+    while (contador < lista->cantidad - 1) {
+        lista->nodo_fin = nodo->siguiente;
         contador ++;
     }
 
-    free(lista->nodo_fin);
-    if (lista->cantidad == 1) {
-        lista->nodo_inicio = NULL;
-        lista->nodo_fin = NULL;
-    } else {
-        lista->nodo_fin = nodo->siguiente;
-        lista->nodo_fin->siguiente = NULL;
-    }
-
-    lista->cantidad--;
+    lista->nodo_fin->siguiente = NULL;
 
     return 0;
 }
