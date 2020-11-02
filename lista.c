@@ -17,6 +17,21 @@ lista_t* lista_crear() {
 }
 
 int lista_insertar(lista_t* lista, void* elemento) {
+
+    if (!lista)
+        return -1;
+
+    nodo_t* nodo = malloc(sizeof(nodo_t));
+
+    if (!nodo)
+        return -1;
+
+    nodo->elemento = elemento;
+    nodo->siguiente = NULL;
+
+    lista->nodo_fin->siguiente = nodo;
+    lista->nodo_fin = nodo;
+
     return 0;
 }
 
