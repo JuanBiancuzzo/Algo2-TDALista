@@ -48,9 +48,9 @@ int lista_insertar_en_posicion(lista_t* lista, void* elemento, size_t posicion) 
 
     nodo->elemento = elemento;
     nodo_t* nodo_aux = lista->nodo_inicio;
-    size_t contador = 0;
+    size_t contador = 1;
 
-    while (contador + 1 < posicion) {
+    while (contador < posicion) {
         nodo_aux = nodo_aux->siguiente;
         contador++;
     }
@@ -89,9 +89,9 @@ int lista_borrar(lista_t* lista) {
         return 0;
     }
 
-    size_t contador = 0;
+    size_t contador = 1;
 
-    while (contador < lista->cantidad - 1) {
+    while (contador < lista->cantidad) {
         lista->nodo_fin = nodo->siguiente;
         contador ++;
     }
@@ -102,11 +102,30 @@ int lista_borrar(lista_t* lista) {
 }
 
 int lista_borrar_de_posicion(lista_t* lista, size_t posicion) {
+
+    if (!lista)
+        return -1;
+
     return 0;
 }
 
 void* lista_elemento_en_posicion(lista_t* lista, size_t posicion){
-    return NULL;
+
+    if (!lista)
+        return NULL;
+
+    if (posicion < lista->cantidad)
+        return NULL;
+
+    nodo_t* nodo = lista->nodo_inicio;
+    size_t contador = 0;
+
+    while (contador < posicion) {
+        nodo = nodo->siguiente;
+        contador++;
+    }
+
+    return nodo->elemento;
 }
 
 void* lista_ultimo(lista_t* lista){
