@@ -31,11 +31,43 @@ int lista_insertar(lista_t* lista, void* elemento) {
 
     lista->nodo_fin->siguiente = nodo;
     lista->nodo_fin = nodo;
+    lista->cantidad++;
 
     return 0;
 }
 
 int lista_insertar_en_posicion(lista_t* lista, void* elemento, size_t posicion) {
+
+    if (!lista)
+        return 1;
+
+    nodo_t* nodo = malloc(sizeof(nodo_t));
+
+    if (!nodo)
+        return -1;
+
+    nodo->elemento = elemento;
+    nodo_t* nodo_aux = lista->nodo_inicio;
+    size_t contador = 0;
+
+    while (contador + 1 < posicion) {
+        nodo_aux = nodo_aux->siguiente;
+        contador++;
+    }
+
+    if (posicion == 0) {
+        nodo->siguiente = nodo_aux;
+        lista->nodo_inicio = nodo;
+    } else {
+        nodo->siguiente = nodo_aux->siguiente;
+        nodo_aux->siguiente = nodo;
+    }
+
+    if (posicion == lista->cantidad)
+        lista->nodo_fin = nodo;
+
+    lista->cantidad++;
+
     return 0;
 }
 
