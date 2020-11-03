@@ -129,7 +129,11 @@ void* lista_elemento_en_posicion(lista_t* lista, size_t posicion){
 }
 
 void* lista_ultimo(lista_t* lista){
-    return NULL;
+    if (!lista)
+        return NULL;
+    if (lista_vacia(lista))
+        return NULL;
+    return lista->nodo_fin->elemento;
 }
 
 bool lista_vacia(lista_t* lista){
