@@ -243,7 +243,13 @@ int lista_desencolar(lista_t* lista) {
 }
 
 void* lista_primero(lista_t* lista) {
-    return NULL;
+    if (!lista)
+        return NULL;
+
+    if (lista_vacia(lista))
+        return NULL;
+
+    return lista->nodo_inicio->elemento;
 }
 
 void lista_destruir(lista_t* lista) {
