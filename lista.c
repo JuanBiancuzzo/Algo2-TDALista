@@ -212,12 +212,13 @@ int lista_encolar(lista_t* lista, void* elemento) {
     nodo->elemento = elemento;
     nodo->siguiente = NULL;
 
-    lista->nodo_fin->siguiente = nodo;
+    if (lista_vacia(lista))
+        lista->nodo_inicio = nodo;
+    else
+        lista->nodo_fin->siguiente = nodo;
+
     lista->nodo_fin = nodo;
     lista->cantidad++;
-
-    if (lista->cantidad == 1)
-        lista->nodo_inicio = nodo;
 
     return 0;
 }
