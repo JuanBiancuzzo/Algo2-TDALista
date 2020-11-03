@@ -224,6 +224,21 @@ int lista_encolar(lista_t* lista, void* elemento) {
 }
 
 int lista_desencolar(lista_t* lista) {
+    if (!lista)
+        return -1;
+
+    if (lista_vacia(lista))
+        return -1;
+
+    nodo_t* nodo_aux = lista->nodo_inicio->siguiente;
+
+    free(lista->nodo_inicio);
+    lista->nodo_inicio = nodo_aux;
+
+    lista->cantidad--;
+    if (lista_vacia(lista))
+        lista->nodo_fin = NULL;
+
     return 0;
 }
 
