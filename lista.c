@@ -147,7 +147,9 @@ bool lista_vacia(lista_t* lista){
 }
 
 size_t lista_elementos(lista_t* lista) {
-    return 0;
+    if (!lista)
+        return 0;
+    return lista->cantidad;
 }
 
 int lista_apilar(lista_t* lista, void* elemento) {
