@@ -158,14 +158,33 @@ int lista_apilar(lista_t* lista, void* elemento) {
 
     nodo_t* nodo = malloc(sizeof(nodo_t));
 
+    if (!nodo)
+        return -1;
+
     nodo->elemento = elemento;
     nodo->siguiente = lista->nodo_inicio;
 
     lista->nodo_inicio = nodo;
+    lista->cantidad++;
     return 0;
 }
 
 int lista_desapilar(lista_t* lista) {
+    if (!lista)
+        return -1;
+
+    if (lista_vacia(lista))
+        return -1;
+
+    nodo_t* nodo_aux = lista->nodo_inicio->siguiente;
+
+    free(lista->nodo_inicio);
+    lista->nodo_inicio = nodo_aux;
+
+    lista->cantidad--;
+    if (lista_vacia(lista))
+        lista->nodo_fin = NULL;
+
     return 0;
 }
 
