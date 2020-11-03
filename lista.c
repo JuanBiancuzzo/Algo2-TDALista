@@ -193,7 +193,11 @@ int lista_desapilar(lista_t* lista) {
 }
 
 void* lista_tope(lista_t* lista) {
-    return NULL;
+    if (!lista)
+        return NULL;
+    if (lista_vacia(lista))
+        return NULL;
+    return lista->nodo_inicio->elemento;
 }
 
 int lista_encolar(lista_t* lista, void* elemento) {
