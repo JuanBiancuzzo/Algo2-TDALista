@@ -166,6 +166,10 @@ int lista_apilar(lista_t* lista, void* elemento) {
 
     lista->nodo_inicio = nodo;
     lista->cantidad++;
+
+    if (lista->cantidad == 1)
+        lista->nodo_fin = nodo;
+
     return 0;
 }
 
