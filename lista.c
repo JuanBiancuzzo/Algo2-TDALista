@@ -153,6 +153,15 @@ size_t lista_elementos(lista_t* lista) {
 }
 
 int lista_apilar(lista_t* lista, void* elemento) {
+    if (!lista)
+        return -1;
+
+    nodo_t* nodo = malloc(sizeof(nodo_t));
+
+    nodo->elemento = elemento;
+    nodo->siguiente = lista->nodo_inicio;
+
+    lista->nodo_inicio = nodo;
     return 0;
 }
 
