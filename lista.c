@@ -201,6 +201,24 @@ void* lista_tope(lista_t* lista) {
 }
 
 int lista_encolar(lista_t* lista, void* elemento) {
+    if (!lista)
+        return -1;
+
+    nodo_t* nodo = malloc(sizeof(nodo_t));
+
+    if (!nodo)
+        return -1;
+
+    nodo->elemento = elemento;
+    nodo->siguiente = NULL;
+
+    lista->nodo_fin->siguiente = nodo;
+    lista->nodo_fin = nodo;
+    lista->cantidad++;
+
+    if (lista->cantidad == 1)
+        lista->nodo_inicio = nodo;
+
     return 0;
 }
 
