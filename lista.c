@@ -2,6 +2,9 @@
 
 #include "lista.h"
 
+#define EXITO 0
+#define ERROR -1
+
 lista_t* lista_crear() {
 
     lista_t* lista = malloc(sizeof(lista_t));
@@ -19,12 +22,12 @@ lista_t* lista_crear() {
 int lista_insertar(lista_t* lista, void* elemento) {
 
     if (!lista)
-        return -1;
+        return ERROR;
 
     nodo_t* nodo = malloc(sizeof(nodo_t));
 
     if (!nodo)
-        return -1;
+        return ERROR;
 
     nodo->elemento = elemento;
     nodo->siguiente = NULL;
@@ -33,18 +36,18 @@ int lista_insertar(lista_t* lista, void* elemento) {
     lista->nodo_fin = nodo;
     lista->cantidad++;
 
-    return 0;
+    return EXITO;
 }
 
 int lista_insertar_en_posicion(lista_t* lista, void* elemento, size_t posicion) {
 
     if (!lista)
-        return 1;
+        return ERROR;
 
     nodo_t* nodo = malloc(sizeof(nodo_t));
 
     if (!nodo)
-        return -1;
+        return ERROR;
 
     nodo->elemento = elemento;
     nodo_t* nodo_aux = lista->nodo_inicio;
@@ -68,15 +71,15 @@ int lista_insertar_en_posicion(lista_t* lista, void* elemento, size_t posicion) 
 
     lista->cantidad++;
 
-    return 0;
+    return EXITO;
 }
 
 int lista_borrar(lista_t* lista) {
     if (!lista)
-        return -1;
+        return ERROR;
 
     if (lista_vacia(lista))
-        return -1;
+        return ERROR;
 
     nodo_t* nodo = lista->nodo_inicio;
 
@@ -86,27 +89,33 @@ int lista_borrar(lista_t* lista) {
     if (lista_vacia(lista)) {
         lista->nodo_inicio = NULL;
         lista->nodo_fin = NULL;
-        return 0;
+
+    } else {
+        size_t contador = 1;
+
+        while (contador < lista->cantidad) {
+            lista->nodo_fin = nodo->siguiente;
+            contador ++;
+        }
+
+        lista->nodo_fin->siguiente = NULL;
+
     }
 
-    size_t contador = 1;
-
-    while (contador < lista->cantidad) {
-        lista->nodo_fin = nodo->siguiente;
-        contador ++;
-    }
-
-    lista->nodo_fin->siguiente = NULL;
-
-    return 0;
+    return EXITO;
 }
 
 int lista_borrar_de_posicion(lista_t* lista, size_t posicion) {
 
     if (!lista)
-        return -1;
+        return ERROR;
 
-    return 0;
+    if (lista_vacia(lista))
+        return ERROR;
+
+
+
+    return EXITO;
 }
 
 void* lista_elemento_en_posicion(lista_t* lista, size_t posicion){
@@ -154,12 +163,12 @@ size_t lista_elementos(lista_t* lista) {
 
 int lista_apilar(lista_t* lista, void* elemento) {
     if (!lista)
-        return -1;
+        return ERROR;
 
     nodo_t* nodo = malloc(sizeof(nodo_t));
 
     if (!nodo)
-        return -1;
+        return ERROR;
 
     nodo->elemento = elemento;
     nodo->siguiente = lista->nodo_inicio;
@@ -170,15 +179,15 @@ int lista_apilar(lista_t* lista, void* elemento) {
     if (lista->cantidad == 1)
         lista->nodo_fin = nodo;
 
-    return 0;
+    return EXITO;
 }
 
 int lista_desapilar(lista_t* lista) {
     if (!lista)
-        return -1;
+        return ERROR;
 
     if (lista_vacia(lista))
-        return -1;
+        return ERROR;
 
     nodo_t* nodo_aux = lista->nodo_inicio->siguiente;
 
@@ -189,7 +198,7 @@ int lista_desapilar(lista_t* lista) {
     if (lista_vacia(lista))
         lista->nodo_fin = NULL;
 
-    return 0;
+    return EXITO;
 }
 
 void* lista_tope(lista_t* lista) {
@@ -202,12 +211,12 @@ void* lista_tope(lista_t* lista) {
 
 int lista_encolar(lista_t* lista, void* elemento) {
     if (!lista)
-        return -1;
+        return ERROR;
 
     nodo_t* nodo = malloc(sizeof(nodo_t));
 
     if (!nodo)
-        return -1;
+        return ERROR;
 
     nodo->elemento = elemento;
     nodo->siguiente = NULL;
@@ -220,15 +229,15 @@ int lista_encolar(lista_t* lista, void* elemento) {
     lista->nodo_fin = nodo;
     lista->cantidad++;
 
-    return 0;
+    return EXITO;
 }
 
 int lista_desencolar(lista_t* lista) {
     if (!lista)
-        return -1;
+        return ERROR;
 
     if (lista_vacia(lista))
-        return -1;
+        return ERROR;
 
     nodo_t* nodo_aux = lista->nodo_inicio->siguiente;
 
@@ -239,7 +248,7 @@ int lista_desencolar(lista_t* lista) {
     if (lista_vacia(lista))
         lista->nodo_fin = NULL;
 
-    return 0;
+    return EXITO;
 }
 
 void* lista_primero(lista_t* lista) {
