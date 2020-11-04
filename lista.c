@@ -53,7 +53,7 @@ int lista_insertar_en_posicion(lista_t* lista, void* elemento, size_t posicion) 
     nodo_t* nodo_aux = lista->nodo_inicio;
     size_t contador = 1;
 
-    while (contador < posicion) {
+    while (contador < posicion && contador + 1 < lista->cantidad) {
         nodo_aux = nodo_aux->siguiente;
         contador++;
     }
@@ -66,7 +66,7 @@ int lista_insertar_en_posicion(lista_t* lista, void* elemento, size_t posicion) 
         nodo_aux->siguiente = nodo;
     }
 
-    if (posicion == lista->cantidad)
+    if (posicion > lista->cantidad)
         lista->nodo_fin = nodo;
 
     lista->cantidad++;
@@ -113,7 +113,30 @@ int lista_borrar_de_posicion(lista_t* lista, size_t posicion) {
     if (lista_vacia(lista))
         return ERROR;
 
+    nodo_t* nodo = lista->nodo_inicio;
+    size_t contador = 1;
 
+    while (contador < posicion && contador + 1 < lista->cantidad) {
+        nodo = nodo->siguiente;
+        contador++;
+    }
+
+    nodo_t* nodo_aux;
+
+    if (posicion == 0) {
+        nodo_aux = nodo;
+        lista->nodo_inicio = nodo->siguiente;
+    } else {
+        nodo_aux = nodo->siguiente;
+        nodo->siguiente = nodo_aux->siguiente;
+    }
+
+    free(nodo_aux);
+
+    if (posicion > lista->cantidad)
+        lista->nodo_fin = nodo;
+
+    lista->cantidad--;
 
     return EXITO;
 }
