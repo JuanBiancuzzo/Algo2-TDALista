@@ -57,12 +57,12 @@ int lista_insertar_en_posicion(lista_t* lista, void* elemento, size_t posicion) 
     nodo_t* nodo_aux = lista->nodo_inicio;
     size_t contador = 1;
 
-    while (contador < posicion && contador + 1 < lista->cantidad) {
+    while (contador < posicion && contador < lista->cantidad) {
         nodo_aux = nodo_aux->siguiente;
         contador++;
     }
 
-    if (posicion == 0) {
+    if (posicion == 0 || lista_vacia(lista)) {
         nodo->siguiente = nodo_aux;
         lista->nodo_inicio = nodo;
     } else {
@@ -70,7 +70,7 @@ int lista_insertar_en_posicion(lista_t* lista, void* elemento, size_t posicion) 
         nodo_aux->siguiente = nodo;
     }
 
-    if (posicion > lista->cantidad)
+    if (posicion >= lista->cantidad)
         lista->nodo_fin = nodo;
 
     lista->cantidad++;
