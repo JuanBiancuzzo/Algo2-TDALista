@@ -32,7 +32,11 @@ int lista_insertar(lista_t* lista, void* elemento) {
     nodo->elemento = elemento;
     nodo->siguiente = NULL;
 
-    lista->nodo_fin->siguiente = nodo;
+    if (lista_vacia(lista))
+        lista->nodo_inicio = nodo;
+    else
+        lista->nodo_fin->siguiente = nodo;
+
     lista->nodo_fin = nodo;
     lista->cantidad++;
 
@@ -82,6 +86,12 @@ int lista_borrar(lista_t* lista) {
         return ERROR;
 
     nodo_t* nodo = lista->nodo_inicio;
+    size_t contador = 2;
+
+    while (contador < lista->cantidad) {
+        nodo = nodo->siguiente;
+        contador++;
+    }
 
     free(lista->nodo_fin);
     lista->cantidad--;
@@ -89,17 +99,9 @@ int lista_borrar(lista_t* lista) {
     if (lista_vacia(lista)) {
         lista->nodo_inicio = NULL;
         lista->nodo_fin = NULL;
-
     } else {
-        size_t contador = 1;
-
-        while (contador < lista->cantidad) {
-            lista->nodo_fin = nodo->siguiente;
-            contador ++;
-        }
-
-        lista->nodo_fin->siguiente = NULL;
-
+        nodo->siguiente = NULL;
+        lista->nodo_fin = nodo;
     }
 
     return EXITO;
@@ -288,13 +290,10 @@ void lista_destruir(lista_t* lista) {
     if (!lista)
         return;
 
-    if (lista->cantidad == 0) {
-        free(lista);
-        return;
-    }
+    while (!lista_vacia(lista))
+        lista_borrar(lista);
 
-    lista_borrar(lista);
-    lista_destruir(lista);
+    free(lista);
 }
 
 lista_iterador_t* lista_iterador_crear(lista_t* lista) {
