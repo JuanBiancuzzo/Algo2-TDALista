@@ -13,9 +13,18 @@ void probar_creacion_lista() {
     lista_destruir(lista);
 }
 
-void probar_creacion_nodo() {
+void probar_insertar_nodo() {
     lista_t* lista = lista_crear();
 
+    int elemento_uno = 11, elemento_dos = 22;
+
+    lista_insertar(lista, &elemento_uno);
+    pa2m_afirmar(elemento_uno == *(int*)lista_ultimo(lista), "Se insertó correctamente un nodo");
+
+    lista_insertar(lista, &elemento_dos);
+    pa2m_afirmar(elemento_dos == *(int*)lista_ultimo(lista), "Se insertó correctamente un nodo al final");
+
+    pa2m_afirmar(lista->nodo_inicio->siguiente == lista->nodo_fin, "Se colocaron correctamente");
 
     lista_destruir(lista);
 }
@@ -24,7 +33,9 @@ int main() {
 
     pa2m_nuevo_grupo("Pruebas de creacion de lista");
     probar_creacion_lista();
-    probar_creacion_nodo();
+
+    pa2m_nuevo_grupo("Pruebas de creacion de Nodos");
+    probar_insertar_nodo();
 
     pa2m_mostrar_reporte();
 }
