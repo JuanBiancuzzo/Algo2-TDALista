@@ -140,6 +140,11 @@ int lista_borrar_de_posicion(lista_t* lista, size_t posicion) {
 
     lista->cantidad--;
 
+    if (lista_vacia(lista)) {
+        lista->nodo_inicio = NULL;
+        lista->nodo_fin = NULL;
+    }
+
     return EXITO;
 }
 
