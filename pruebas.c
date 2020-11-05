@@ -7,6 +7,11 @@
 #define ERROR -1
 #define EXITO 0
 
+void insertar_n_elementos(lista_t* lista, void* elemento, size_t n) {
+    for (size_t i = 0; i < n; i++)
+        lista_insertar(lista, elemento);
+}
+
 void probar_creacion_lista () {
     lista_t* lista = NULL;
 
@@ -48,8 +53,7 @@ void probar_insertar_en_posicion_nodo () {
      pa2m_afirmar(lista->nodo_inicio->elemento == lista->nodo_fin->elemento,
                   "Detecta que la lista esta vacia");
 
-     lista_insertar(lista, &elemento_uno);
-     lista_insertar(lista, &elemento_uno);
+     insertar_n_elementos(lista, &elemento_uno, 2);
 
      lista_insertar_en_posicion(lista, &elemento_dos, 1);
      pa2m_afirmar(elemento_dos == *(int*)lista->nodo_inicio->siguiente->elemento,
@@ -58,6 +62,26 @@ void probar_insertar_en_posicion_nodo () {
      lista_insertar_en_posicion(lista, &elemento_tres, 9);
      pa2m_afirmar(elemento_tres == *(int*)lista->nodo_fin->elemento,
                   "Colocado al final aunque la posición no exista");
+
+     lista_destruir(lista);
+}
+
+void probar_apilar_nodo () {
+     lista_t* lista = lista_crear();
+     int elemento_uno = 11, elemento_dos = 22, elemento_tres = 33;
+
+     pa2m_afirmar(lista_apilar(NULL, &elemento_uno) == ERROR,
+                  "Detecta que la lista es invalida");
+
+     lista_apilar(lista, &elemento_dos);
+     pa2m_afirmar(lista->nodo_inicio == lista->nodo_fin && *(int*)lista->nodo_inicio->elemento == elemento_dos,
+                  "Apila correctamente un elemento en lista vacia");
+
+     insertar_n_elementos(lista, &elemento_uno, 3);
+
+     lista_apilar(lista, &elemento_tres);
+     pa2m_afirmar(*(int*)lista->nodo_inicio->elemento == elemento_tres,
+                  "Apila correctamente un elemento en la posicion correcta");
 
      lista_destruir(lista);
 }
@@ -90,13 +114,27 @@ int main() {
     pa2m_nuevo_grupo("Pruebas de creacion de lista");
     probar_creacion_lista();
 
+
     pa2m_nuevo_grupo("Pruebas de creacion de Nodos");
-    printf("\tProbar lista_insertar:\n");
+    printf(" * Probar lista_insertar:\n");
     probar_insertar_nodo();
-    printf("\n\tProbar lista_insertar_en_posicion:\n");
+    printf("\n * Probar lista_insertar_en_posicion:\n");
     probar_insertar_en_posicion_nodo();
-    printf("\n\tProbar lista_borrar_de_posicion:\n");
+    printf("\n * Probar lista_apilar:\n");
+    probar_apilar_nodo();
+    // printf("\n * Probar lista_encolar:\n");
+
+    // pa2m_nuevo_grupo("Pruebas de mostrar elementos");
+    // printf("\n * Probar lista_elemento_en_posicoion:\n");
+    // printf("\n * Probar lista_ultimo:\n");
+    // printf("\n * Probar lista_tope:\n");
+    // printf("\n * Probar lista_primero:\n");
+
+    pa2m_nuevo_grupo("Pruebas de borrar de Nodos");
+    printf(" * Probar lista_borrar_de_posicion:\n");
     probar_borrar_de_posicion_nodo();
+    // printf("\n * Probar lista_desapilar:\n");
+    // printf("\n * Probar lista_desencolar:\n");
 
     pa2m_mostrar_reporte();
 }
