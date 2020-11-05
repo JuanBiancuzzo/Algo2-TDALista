@@ -153,7 +153,10 @@ void* lista_elemento_en_posicion(lista_t* lista, size_t posicion){
     if (!lista)
         return NULL;
 
-    if (posicion < lista->cantidad)
+    if (lista_vacia(lista))
+        return NULL;
+
+    if (posicion > lista->cantidad)
         return NULL;
 
     nodo_t* nodo = lista->nodo_inicio;
