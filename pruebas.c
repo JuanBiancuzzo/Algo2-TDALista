@@ -256,8 +256,35 @@ void probar_desapilar_nodo () {
     lista_insertar(lista, &elemento_tres);// posicion 2
 
     lista_desapilar(lista);
-    pa2m_afirmar(*(int*)lista->nodo_inicio->elemento == elemento_dos,
+    pa2m_afirmar(lista->nodo_inicio->elemento == lista_primero(lista),
                  "Borra correctamente el primer elemento");
+
+    lista_destruir(lista);
+}
+
+void probar_desencolar_nodo () {
+    lista_t* lista = lista_crear();
+    int elemento_uno = 11, elemento_dos = 22, elemento_tres = 33;
+
+    pa2m_afirmar(lista_desencolar(NULL) == ERROR,
+                  "Detecta que la lista es invalida");
+
+    pa2m_afirmar(lista_desencolar(lista) == ERROR,
+                  "Detecta que la lista esta vacia");
+
+    lista_insertar(lista, &elemento_uno);
+
+    lista_desencolar(lista);
+    pa2m_afirmar(lista->nodo_inicio == NULL && lista->nodo_fin == NULL,
+                 "Elimina el elemento unico correctamente");
+
+    lista_insertar(lista, &elemento_uno); // posicion 0
+    lista_insertar(lista, &elemento_dos); // posicion 1
+    lista_insertar(lista, &elemento_tres);// posicion 2
+
+    lista_desencolar(lista);
+    pa2m_afirmar(lista->nodo_fin->elemento == lista_ultimo(lista),
+                 "Borra correctamente el ultimo elemento");
 
     lista_destruir(lista);
 }
@@ -293,7 +320,8 @@ int main() {
     probar_borrar_de_posicion_nodo();
     printf("\n * Probar lista_desapilar:\n");
     probar_desapilar_nodo();
-    // printf("\n * Probar lista_desencolar:\n");
+    printf("\n * Probar lista_desencolar:\n");
+    probar_desencolar_nodo();
 
     pa2m_mostrar_reporte();
 }
