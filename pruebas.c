@@ -235,6 +235,33 @@ void probar_borrar_de_posicion_nodo () {
     lista_destruir(lista);
 }
 
+void probar_desapilar_nodo () {
+    lista_t* lista = lista_crear();
+    int elemento_uno = 11, elemento_dos = 22, elemento_tres = 33;
+
+    pa2m_afirmar(lista_desapilar(NULL) == ERROR,
+                  "Detecta que la lista es invalida");
+
+    pa2m_afirmar(lista_desapilar(lista) == ERROR,
+                  "Detecta que la lista esta vacia");
+
+    lista_insertar(lista, &elemento_uno);
+
+    lista_desapilar(lista);
+    pa2m_afirmar(lista->nodo_inicio == NULL && lista->nodo_fin == NULL,
+                 "Elimina el elemento unico correctamente");
+
+    lista_insertar(lista, &elemento_uno); // posicion 0
+    lista_insertar(lista, &elemento_dos); // posicion 1
+    lista_insertar(lista, &elemento_tres);// posicion 2
+
+    lista_desapilar(lista);
+    pa2m_afirmar(*(int*)lista->nodo_inicio->elemento == elemento_dos,
+                 "Borra correctamente el primer elemento");
+
+    lista_destruir(lista);
+}
+
 int main() {
 
     pa2m_nuevo_grupo("Pruebas de creacion de lista");
@@ -264,7 +291,8 @@ int main() {
     pa2m_nuevo_grupo("Pruebas de borrar de Nodos");
     printf(" * Probar lista_borrar_de_posicion:\n");
     probar_borrar_de_posicion_nodo();
-    // printf("\n * Probar lista_desapilar:\n");
+    printf("\n * Probar lista_desapilar:\n");
+    probar_desapilar_nodo();
     // printf("\n * Probar lista_desencolar:\n");
 
     pa2m_mostrar_reporte();
