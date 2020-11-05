@@ -90,6 +90,12 @@ void probar_borrar_de_posicion_nodo () {
     lista_t* lista = lista_crear();
     int elemento_uno = 11, elemento_dos = 22, elemento_tres = 33;
 
+    pa2m_afirmar(lista_borrar_de_posicion(NULL, 2) == ERROR,
+                  "Detecta que la lista es invalida");
+
+    pa2m_afirmar(lista_borrar_de_posicion(lista, 2) == ERROR,
+                  "Detecta que la lista esta vacia");
+
     lista_insertar(lista, &elemento_uno); // posicion 0
     lista_insertar(lista, &elemento_dos); // posicion 1
     lista_insertar(lista, &elemento_tres);// posicion 2
