@@ -74,16 +74,38 @@ void probar_apilar_nodo () {
                   "Detecta que la lista es invalida");
 
      lista_apilar(lista, &elemento_dos);
-     pa2m_afirmar(lista->nodo_inicio == lista->nodo_fin && *(int*)lista->nodo_inicio->elemento == elemento_dos,
+     pa2m_afirmar(lista->nodo_inicio == lista->nodo_fin && lista->nodo_fin != NULL
+                  && *(int*)lista->nodo_inicio->elemento == elemento_dos,
                   "Apila correctamente un elemento en lista vacia");
 
      insertar_n_elementos(lista, &elemento_uno, 3);
 
      lista_apilar(lista, &elemento_tres);
      pa2m_afirmar(*(int*)lista->nodo_inicio->elemento == elemento_tres,
-                  "Apila correctamente un elemento en la posicion correcta");
+                  "Apila correctamente un elemento al comienzo de la lista");
 
      lista_destruir(lista);
+}
+
+void probar_encolar_nodo () {
+    lista_t* lista = lista_crear();
+    int elemento_uno = 11, elemento_dos = 22, elemento_tres = 33;
+
+    pa2m_afirmar(lista_encolar(NULL, &elemento_uno) == ERROR,
+                 "Detecta que la lista es invalida");
+
+    lista_encolar(lista, &elemento_dos);
+    pa2m_afirmar(lista->nodo_inicio == lista->nodo_fin && lista->nodo_fin != NULL
+                 && *(int*)lista->nodo_inicio->elemento == elemento_dos,
+                 "Encola correctamente un elemento en lista vacia");
+
+    insertar_n_elementos(lista, &elemento_uno, 3);
+
+    lista_encolar(lista, &elemento_tres);
+    pa2m_afirmar(*(int*)lista->nodo_fin->elemento == elemento_tres,
+                 "Encola correctamente un elemento al final de la lista");
+
+    lista_destruir(lista);
 }
 
 void probar_borrar_de_posicion_nodo () {
@@ -128,7 +150,8 @@ int main() {
     probar_insertar_en_posicion_nodo();
     printf("\n * Probar lista_apilar:\n");
     probar_apilar_nodo();
-    // printf("\n * Probar lista_encolar:\n");
+    printf("\n * Probar lista_encolar:\n");
+    probar_encolar_nodo();
 
     // pa2m_nuevo_grupo("Pruebas de mostrar elementos");
     // printf("\n * Probar lista_elemento_en_posicoion:\n");
