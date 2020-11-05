@@ -158,6 +158,30 @@ void probar_ultimo_mostrar () {
     lista_destruir(lista);
 }
 
+void probar_tope_mostrar () {
+    lista_t* lista = lista_crear();
+    int elemento_uno = 11, elemento_dos = 22;
+
+    pa2m_afirmar(lista_tope(NULL) == NULL,
+                 "Detecta que la lista es invalida");
+
+    pa2m_afirmar(lista_tope(lista) == NULL,
+                 "Detecta que la lista esta vacia");
+
+    lista_apilar(lista, &elemento_uno);
+
+    pa2m_afirmar(*(int*)lista_tope(lista) == elemento_uno,
+                 "Devuelve correctamente el primer elemento, cuando es el único");
+
+    lista_apilar(lista, &elemento_uno);
+    lista_apilar(lista, &elemento_dos);
+
+    pa2m_afirmar(*(int*)lista_tope(lista) == elemento_dos,
+                 "Devuelve correctamente el primer elemento, cuando hay más de uno");
+
+    lista_destruir(lista);
+}
+
 void probar_borrar_de_posicion_nodo () {
     lista_t* lista = lista_crear();
     int elemento_uno = 11, elemento_dos = 22, elemento_tres = 33;
@@ -208,7 +232,8 @@ int main() {
     probar_elemento_en_posicion_mostrar();
     printf("\n * Probar lista_ultimo:\n");
     probar_ultimo_mostrar();
-    // printf("\n * Probar lista_tope:\n");
+    printf("\n * Probar lista_tope:\n");
+    probar_tope_mostrar();
     // printf("\n * Probar lista_primero:\n");
 
     pa2m_nuevo_grupo("Pruebas de borrar de Nodos");
