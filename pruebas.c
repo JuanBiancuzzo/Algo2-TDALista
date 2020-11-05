@@ -108,6 +108,32 @@ void probar_encolar_nodo () {
     lista_destruir(lista);
 }
 
+void probar_elemento_en_posicion () {
+    lista_t* lista = lista_crear();
+    int elemento_uno = 11, elemento_dos = 22, elemento_tres = 33;
+
+    pa2m_afirmar(lista_elemento_en_posicion(NULL, 4) == NULL,
+                 "Detecta que la lista es invalida");
+
+    pa2m_afirmar(lista_elemento_en_posicion(lista, 4) == NULL,
+                 "Detecta que la lista esta vacia");
+
+    lista_insertar(lista, &elemento_uno); // posicion 0
+    lista_insertar(lista, &elemento_dos); // posicion 1
+    lista_insertar(lista, &elemento_tres);// posicion 2
+
+    pa2m_afirmar(*(int*)lista_elemento_en_posicion(lista, 0) == elemento_uno,
+                 "Devuelve correctamente el primer elemento");
+
+    pa2m_afirmar(*(int*)lista_elemento_en_posicion(lista, 2) == elemento_tres,
+                 "Devuelve correctamente el ultimo elemento");
+
+    pa2m_afirmar(lista_elemento_en_posicion(lista, 9) == NULL,
+                 "Detecta que la posicion es invalida");
+
+    lista_destruir(lista);
+}
+
 void probar_borrar_de_posicion_nodo () {
     lista_t* lista = lista_crear();
     int elemento_uno = 11, elemento_dos = 22, elemento_tres = 33;
@@ -153,8 +179,9 @@ int main() {
     printf("\n * Probar lista_encolar:\n");
     probar_encolar_nodo();
 
-    // pa2m_nuevo_grupo("Pruebas de mostrar elementos");
-    // printf("\n * Probar lista_elemento_en_posicoion:\n");
+    pa2m_nuevo_grupo("Pruebas de mostrar elementos");
+    printf("\n * Probar lista_elemento_en_posicoion:\n");
+    probar_elemento_en_posicion();
     // printf("\n * Probar lista_ultimo:\n");
     // printf("\n * Probar lista_tope:\n");
     // printf("\n * Probar lista_primero:\n");
