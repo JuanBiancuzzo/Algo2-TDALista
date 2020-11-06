@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 
 #include "lista.h"
 
@@ -357,16 +358,20 @@ void lista_iterador_destruir(lista_iterador_t* iterador) {
     free(iterador);
 }
 
-size_t lista_con_cada_elemento(lista_t* lista, bool (*funcion)(void*, void*), void *contexto) {
+size_t lista_con_cada_elemento(lista_t* lista, bool (*funcion)(void*, void*), void* contexto) {
     if (!lista)
+        return 0;
+
+    if (lista_vacia(lista))
         return 0;
 
     nodo_t* nodo = lista->nodo_inicio;
     size_t contador = 0;
+    bool seguir = true;
 
-    while (contador < lista->cantidad) {
+    while (contador < lista->cantidad && seguir) {
 
-        funcion(nodo, contexto);
+        seguir = funcion(nodo->elemento, contexto);
 
         nodo = nodo->siguiente;
         contador++;
