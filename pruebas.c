@@ -306,6 +306,30 @@ void probar_iterador_crear_iterar () {
     lista_destruir(lista);
 }
 
+void probar_iterador_tiene_siguiente_iterar () {
+    lista_t* lista = lista_crear();
+    int elemento_uno = 11, elemento_dos = 22;
+
+    lista_insertar(lista, &elemento_uno);
+    lista_insertar(lista, &elemento_dos);
+
+    lista_iterador_t* iterador = lista_iterador_crear(lista);
+
+    pa2m_afirmar(lista_iterador_tiene_siguiente(NULL) == false,
+                 "Detecta un iterador invalido");
+
+    pa2m_afirmar(lista_iterador_tiene_siguiente(iterador) == true,
+                 "Detecta correctamente que tiene siguiente");
+
+    iterador->corriente = lista->nodo_inicio->siguiente;
+
+     pa2m_afirmar(lista_iterador_tiene_siguiente(iterador) == false,
+                 "Detecta correctamente que no tiene siguiente");
+
+    lista_iterador_destruir(iterador);
+    lista_destruir(lista);
+}
+
 int main() {
 
     pa2m_nuevo_grupo("Pruebas de creacion de lista");
@@ -343,6 +367,10 @@ int main() {
     pa2m_nuevo_grupo("Pruebas de iteradores");
     printf(" * Probar iterador_crear:\n");
     probar_iterador_crear_iterar();
+    printf("\n * Probar iterador_tiene_siguiente:\n");
+    probar_iterador_tiene_siguiente_iterar();
+
+
 
     pa2m_mostrar_reporte();
 }
