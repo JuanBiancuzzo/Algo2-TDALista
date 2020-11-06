@@ -356,7 +356,7 @@ bool puedo_seguir_uno (void* elemento, void* contexto) {
 }
 
 bool puedo_seguir_dos (void* elemento, void* contexto) {
-    if (*(int*) contexto - 1 == 5)
+    if (*(int*) contexto + 1 == 5)
         return false;
     (*(int*)contexto)++;
     return true;
