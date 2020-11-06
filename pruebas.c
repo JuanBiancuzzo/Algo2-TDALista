@@ -289,7 +289,7 @@ void probar_desencolar_nodo () {
     lista_destruir(lista);
 }
 
-void probar_iterador_crear_iterar () {
+void probar_iterador_crear () {
     lista_t* lista = lista_crear();
     int elemento = 11;
 
@@ -306,7 +306,7 @@ void probar_iterador_crear_iterar () {
     lista_destruir(lista);
 }
 
-void probar_iterador_tiene_siguiente_iterar () {
+void probar_iterador_tiene_siguiente () {
     lista_t* lista = lista_crear();
     int elemento_uno = 11, elemento_dos = 22;
 
@@ -323,8 +323,30 @@ void probar_iterador_tiene_siguiente_iterar () {
 
     iterador->corriente = lista->nodo_inicio->siguiente;
 
-     pa2m_afirmar(lista_iterador_tiene_siguiente(iterador) == false,
+    pa2m_afirmar(lista_iterador_tiene_siguiente(iterador) == false,
                  "Detecta correctamente que no tiene siguiente");
+
+    lista_iterador_destruir(iterador);
+    lista_destruir(lista);
+}
+
+void probar_iterador_avanzar () {
+    lista_t* lista = lista_crear();
+    int elemento_uno = 11, elemento_dos = 22;
+
+    lista_insertar(lista, &elemento_uno);
+    lista_insertar(lista, &elemento_dos);
+
+    lista_iterador_t* iterador = lista_iterador_crear(lista);
+
+    pa2m_afirmar(lista_iterador_avanzar(NULL) == false,
+                 "Detecta correctamente que el iterador es invalido");
+
+    pa2m_afirmar(lista_iterador_avanzar(iterador) == true && *(int*)iterador->corriente->elemento == elemento_dos,
+                 "Se mueve correctamente a la siguiente posicion");
+
+    pa2m_afirmar(lista_iterador_avanzar(iterador) == false,
+                 "No se mueve cuando no hay siguiente posición");
 
     lista_iterador_destruir(iterador);
     lista_destruir(lista);
@@ -366,10 +388,11 @@ int main() {
 
     pa2m_nuevo_grupo("Pruebas de iteradores");
     printf(" * Probar iterador_crear:\n");
-    probar_iterador_crear_iterar();
+    probar_iterador_crear();
     printf("\n * Probar iterador_tiene_siguiente:\n");
-    probar_iterador_tiene_siguiente_iterar();
-
+    probar_iterador_tiene_siguiente();
+    printf("\n * Probar iterador_avanzar:\n");
+    probar_iterador_avanzar();
 
 
     pa2m_mostrar_reporte();

@@ -299,7 +299,7 @@ void lista_destruir(lista_t* lista) {
         return;
 
     while (!lista_vacia(lista))
-        lista_borrar(lista);
+        lista_desapilar(lista);
 
     free(lista);
 }
