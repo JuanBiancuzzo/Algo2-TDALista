@@ -323,6 +323,12 @@ bool lista_iterador_tiene_siguiente(lista_iterador_t* iterador) {
     if (!iterador)
         return false;
 
+    if (!iterador->corriente)
+        return false;
+
+    if (!iterador->lista)
+        return false;
+
     return iterador->corriente->siguiente != NULL;
 }
 
