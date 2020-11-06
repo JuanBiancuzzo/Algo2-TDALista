@@ -356,9 +356,10 @@ bool puedo_seguir_uno (void* elemento, void* contexto) {
 }
 
 bool puedo_seguir_dos (void* elemento, void* contexto) {
-    if (*(int*) contexto + 1 == 5)
-        return false;
     (*(int*)contexto)++;
+
+    if (*(int*) contexto == 5)
+        return false;
     return true;
 }
 
@@ -378,9 +379,11 @@ void probar_iterador_con_cada_elemento () {
 
     insertar_n_elementos(lista, &elemento, cantidad);
 
+    pa2m_afirmar(lista_con_cada_elemento(lista, NULL, NULL) == 0,
+                 "Detecta correctamente que la funcion es invalida");
+
     pa2m_afirmar(lista_con_cada_elemento(lista, funcion_uno, NULL) == cantidad,
                  "Detecta correctamente que la lista tiene 5 elementos");
-
 
     insertar_n_elementos(lista, &elemento, cantidad);
     cantidad += 5;

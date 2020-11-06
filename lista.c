@@ -8,14 +8,10 @@
 
 lista_t* lista_crear() {
 
-    lista_t* lista = malloc(sizeof(lista_t));
+    lista_t* lista = calloc(1, sizeof(lista_t));
 
     if (!lista)
         return NULL;
-
-    lista->nodo_inicio = NULL;
-    lista->nodo_fin = NULL;
-    lista->cantidad = 0;
 
     return lista;
 }
@@ -360,6 +356,9 @@ void lista_iterador_destruir(lista_iterador_t* iterador) {
 
 size_t lista_con_cada_elemento(lista_t* lista, bool (*funcion)(void*, void*), void* contexto) {
     if (!lista)
+        return 0;
+
+    if (!funcion)
         return 0;
 
     if (lista_vacia(lista))
