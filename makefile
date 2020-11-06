@@ -8,4 +8,5 @@ build:
 	$(CC) *.c -o $(NAME) $(CFLAGS)
 
 valgrin: build
+	clear
 	$(VAL) $(VFLAGS) ./$(NAME)

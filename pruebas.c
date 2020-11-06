@@ -289,6 +289,23 @@ void probar_desencolar_nodo () {
     lista_destruir(lista);
 }
 
+void probar_iterador_crear_iterar () {
+    lista_t* lista = lista_crear();
+    int elemento = 11;
+
+    pa2m_afirmar(lista_iterador_crear(NULL) == NULL,
+                 "Detecta una lista invalida");
+
+    lista_insertar(lista, &elemento);
+
+    lista_iterador_t* iterador = lista_iterador_crear(lista);
+    pa2m_afirmar(iterador->lista == lista && *(int*)iterador->corriente->elemento == elemento,
+                 "Crea un iterador inicializado correctamente");
+
+    lista_iterador_destruir(iterador);
+    lista_destruir(lista);
+}
+
 int main() {
 
     pa2m_nuevo_grupo("Pruebas de creacion de lista");
@@ -322,6 +339,10 @@ int main() {
     probar_desapilar_nodo();
     printf("\n * Probar lista_desencolar:\n");
     probar_desencolar_nodo();
+
+    pa2m_nuevo_grupo("Pruebas de iteradores");
+    printf(" * Probar iterador_crear:\n");
+    probar_iterador_crear_iterar();
 
     pa2m_mostrar_reporte();
 }
