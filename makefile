@@ -7,6 +7,6 @@ VFLAGS=--leak-check=full --track-origins=yes --show-reachable=yes
 build:
 	$(CC) *.c -o $(NAME) $(CFLAGS)
 
-valgrin: build
+valgrind: build
 	clear
 	$(VAL) $(VFLAGS) ./$(NAME)
