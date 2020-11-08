@@ -85,14 +85,13 @@ void probar_insertar_varios_nodos_en_lista_vacia () {
                  "Mensaje de exito al insertar varios elementos");
 
     pa2m_afirmar(lista->nodo_inicio && lista->nodo_fin && lista->nodo_inicio != lista->nodo_fin,
-                 "La estructura de la lista se actualiza de forma correcta");
+                 "La estructura de la lista se actualizó de forma correcta");
 
     pa2m_afirmar(elemento_uno == *(int*)lista->nodo_inicio->elemento && lista->nodo_inicio->siguiente == lista->nodo_fin,
                  "Se inserta correctamente el primer elemento");
 
     pa2m_afirmar(elemento_dos == *(int*)lista->nodo_fin->elemento && !lista->nodo_fin->siguiente,
-                 "Se inserta correctamente el segundo elemento\n");
-
+                 "Se inserta correctamente el segundo elemento");
 
     lista_destruir(lista);
 }
@@ -106,28 +105,75 @@ void probar_insertar_nodo () {
 
 }
 
+void probar_insertar_en_posicion_lista_invalida () {
+    lista_t* lista = lista_crear();
+    int elemento = 11;
+
+    pa2m_afirmar(lista_insertar_en_posicion(NULL, &elemento, 1) == ERROR,
+                 "Detecta correctamente una lista invalida");
+
+    lista_destruir(lista);
+}
+
+void probar_insertar_en_posicion_lista_vacia () {
+    lista_t* lista = lista_crear();
+    int elemento = 11;
+
+    pa2m_afirmar(lista_insertar_en_posicion(lista, &elemento, 0) == EXITO,
+                 "Mensaje de exito al insertar en una lista vacia");
+
+    pa2m_afirmar(lista->nodo_inicio && lista->nodo_fin && lista->nodo_inicio == lista->nodo_fin,
+                 "La estructura de la lista se actualizó de forma correcta")
+
+    pa2m_afirmar(elemento == *(int*)lista->nodo_inicio->elemento,
+                 "Se insertó correctamente el nodo\n");
+
+    lista_destruir(lista);
+}
+
+void probar_insertar_en_posicion_en_extremos () {
+    lista_t* lista = lista_crear();
+    int elemento_uno = 11, elemento_dos = 22, elemento_tres = 33;
+
+    insertar_n_elementos(lista, &elemento_uno, 5);
+
+    pa2m_afirmar(lista_insertar_en_posicion(lista, &elemento_dos, 0) == EXITO,
+                 "Mensaje de exito al insertar al principio de la lista");
+
+    pa2m_afirmar(elemento_dos == *(int*)lista->nodo_inicio->elemento,
+                 "Se inserta correctamente el elemento al principio");
+
+    pa2m_afirmar(lista_insertar_en_posicion(lista, &elemento_tres, 6) == EXITO,
+                 "Mensaje de extio al insertar al final de la lista");
+
+    pa2m_afirmar(elemento_tres == *(int*)lista->nodo_fin->elemento,
+                 "Se inserta correctamente el elemento al final\n")
+
+    lista_destruir(lista);
+}
+
+void probar_insertar_en_posicion_afuera_de_la_lista () {
+    lista_t* lista = lista_crear();
+    int elemento_uno = 11, elemento_dos = 22;
+
+    insertar_n_elementos(lista, &elemento_uno, 5);
+
+    pa2m_afirmar(lista_insertar_en_posicion(lista, &elemento_dos, 10) == EXITO,
+                 "Mensaje de exito al insertar en posicion mayor a la cantidad de la lista");
+
+    pa2m_afirmar(elemento_dos == *(int*)lista->nodo_fin->elemento,
+                 "Se insertó correctamente en la ultima posicion");
+
+    lista_destruir(lista);
+}
+
 void probar_insertar_en_posicion_nodo () {
-     lista_t* lista = lista_crear();
-     int elemento_uno = 11, elemento_dos = 22, elemento_tres = 33;
 
-     pa2m_afirmar(lista_insertar_en_posicion(NULL, &elemento_uno, 1) == ERROR,
-                  "Detecta que la lista es invalida");
+    probar_insertar_en_posicion_lista_invalida();
+    probar_insertar_en_posicion_lista_vacia();
+    probar_insertar_en_posicion_en_extremos();
+    probar_insertar_en_posicion_afuera_de_la_lista();
 
-     lista_insertar_en_posicion(lista, &elemento_uno, 1);
-     pa2m_afirmar(lista->nodo_inicio->elemento == lista->nodo_fin->elemento,
-                  "Detecta que la lista esta vacia");
-
-     insertar_n_elementos(lista, &elemento_uno, 2);
-
-     lista_insertar_en_posicion(lista, &elemento_dos, 1);
-     pa2m_afirmar(elemento_dos == *(int*)lista->nodo_inicio->siguiente->elemento,
-                  "Colocado en la posicion correcta");
-
-     lista_insertar_en_posicion(lista, &elemento_tres, 9);
-     pa2m_afirmar(elemento_tres == *(int*)lista->nodo_fin->elemento,
-                  "Colocado al final aunque la posición no exista");
-
-     lista_destruir(lista);
 }
 
 void probar_apilar_nodo () {
