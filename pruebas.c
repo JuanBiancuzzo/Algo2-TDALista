@@ -1,3 +1,4 @@
+#include <stdio.h>
 #include <stdlib.h>
 
 #include "lista.h"
@@ -22,23 +23,87 @@ void probar_creacion_lista () {
     lista_destruir(lista);
 }
 
-void probar_insertar_nodo () {
+void probar_insertar_invalido() {
     lista_t* lista = lista_crear();
-    int elemento_uno = 11, elemento_dos = 22;
+    int elemento = 11;
 
-    pa2m_afirmar(lista_insertar(NULL, &elemento_uno) == ERROR,
-                 "Detecta que la lista es invalida");
+    pa2m_afirmar(lista_insertar(NULL, &elemento) == ERROR,
+                 "Detecta que la lista es invalida\n");
 
-    lista_insertar(lista, &elemento_uno);
-    lista_insertar(lista, &elemento_dos);
+    lista_destruir(lista);
+}
 
-    pa2m_afirmar(elemento_dos == *(int*)lista_ultimo(lista),
-                 "Se insertó correctamente un nodo al final");
-    pa2m_afirmar(lista->nodo_inicio->siguiente == lista->nodo_fin,
-                 "Se colocaron correctamente");
+void probar_insertar_lista_vacia () {
+    lista_t* lista = lista_crear();
+    int elemento = 11;
+
+    pa2m_afirmar(lista_insertar(lista, &elemento) == EXITO,
+                 "Mensaje de exito al insertar en una lista vacia");
+
+    pa2m_afirmar(lista->nodo_inicio && lista->nodo_fin && lista->nodo_inicio == lista->nodo_fin,
+                 "La estructura de la lista se actualiza de forma correcta");
+
+    pa2m_afirmar(!lista->nodo_inicio->siguiente && elemento == *(int*)lista->nodo_inicio->elemento,
+                 "Inserta correctamente un elemento con la lista vacia\n");
 
 
     lista_destruir(lista);
+}
+
+void probar_insertar_lista_con_nodos () {
+    lista_t* lista = lista_crear();
+    int elemento = 11;
+
+    nodo_t* nodo = calloc(1, sizeof(nodo_t));
+    if (!nodo) {
+        lista_destruir(lista);
+        return;
+    }
+
+    lista->nodo_inicio = nodo;
+    lista->nodo_fin = nodo;
+    lista->cantidad = 1;
+
+    pa2m_afirmar(lista_insertar(lista, &elemento) == EXITO,
+                 "Mensaje de exito al insertar un elemento con una lista no vacia");
+
+    pa2m_afirmar(lista->nodo_inicio && lista->nodo_fin && lista->nodo_inicio != lista->nodo_fin,
+                 "La estructura de la lista se actualiza de forma correcta");
+
+    pa2m_afirmar(elemento == *(int*)lista->nodo_fin->elemento,
+                 "Se inserta correctamente el elemento al final\n");
+
+
+    lista_destruir(lista);
+}
+
+void probar_insertar_varios_nodos_en_lista_vacia () {
+    lista_t* lista = lista_crear();
+    int elemento_uno = 11, elemento_dos = 22;
+
+    pa2m_afirmar(lista_insertar(lista, &elemento_uno) == EXITO && lista_insertar(lista, &elemento_dos) == EXITO,
+                 "Mensaje de exito al insertar varios elementos");
+
+    pa2m_afirmar(lista->nodo_inicio && lista->nodo_fin && lista->nodo_inicio != lista->nodo_fin,
+                 "La estructura de la lista se actualiza de forma correcta");
+
+    pa2m_afirmar(elemento_uno == *(int*)lista->nodo_inicio->elemento && lista->nodo_inicio->siguiente == lista->nodo_fin,
+                 "Se inserta correctamente el primer elemento");
+
+    pa2m_afirmar(elemento_dos == *(int*)lista->nodo_fin->elemento && !lista->nodo_fin->siguiente,
+                 "Se inserta correctamente el segundo elemento\n");
+
+
+    lista_destruir(lista);
+}
+
+void probar_insertar_nodo () {
+
+    probar_insertar_invalido();
+    probar_insertar_lista_vacia();
+    probar_insertar_lista_con_nodos();
+    probar_insertar_varios_nodos_en_lista_vacia();
+
 }
 
 void probar_insertar_en_posicion_nodo () {

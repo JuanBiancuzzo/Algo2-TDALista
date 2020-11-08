@@ -21,13 +21,12 @@ int lista_insertar(lista_t* lista, void* elemento) {
     if (!lista)
         return ERROR;
 
-    nodo_t* nodo = malloc(sizeof(nodo_t));
+    nodo_t* nodo = calloc(1, sizeof(nodo_t));
 
     if (!nodo)
         return ERROR;
 
     nodo->elemento = elemento;
-    nodo->siguiente = NULL;
 
     if (lista_vacia(lista))
         lista->nodo_inicio = nodo;
@@ -340,6 +339,7 @@ bool lista_iterador_avanzar(lista_iterador_t* iterador) {
     return true;
 }
 
+// hay un error en la forma de leectura - CORREGIR
 void* lista_iterador_elemento_actual(lista_iterador_t* iterador) {
     if (!iterador)
         return NULL;
