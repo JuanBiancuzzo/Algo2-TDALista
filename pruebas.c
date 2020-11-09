@@ -24,13 +24,11 @@ void probar_creacion_lista () {
 }
 
 void probar_insertar_invalido() {
-    lista_t* lista = lista_crear();
     int elemento = 11;
 
     pa2m_afirmar(lista_insertar(NULL, &elemento) == ERROR,
                  "Detecta que la lista es invalida\n");
 
-    lista_destruir(lista);
 }
 
 void probar_insertar_lista_vacia () {
@@ -106,13 +104,11 @@ void probar_insertar_nodo () {
 }
 
 void probar_insertar_en_posicion_lista_invalida () {
-    lista_t* lista = lista_crear();
     int elemento = 11;
 
     pa2m_afirmar(lista_insertar_en_posicion(NULL, &elemento, 1) == ERROR,
-                 "Detecta correctamente una lista invalida");
+                 "Detecta correctamente una lista invalida\n");
 
-    lista_destruir(lista);
 }
 
 void probar_insertar_en_posicion_lista_vacia () {
@@ -176,25 +172,76 @@ void probar_insertar_en_posicion_nodo () {
 
 }
 
+void probar_apilar_lista_invalida () {
+    int elemento = 11;
+
+    pa2m_afirmar(lista_apilar(NULL, &elemento) == ERROR,
+                 "Detecta que la pila es invalida\n");
+}
+
+void probar_apilar_lista_vacia () {
+    lista_t* lista = lista_crear();
+    int elemento = 11;
+
+    pa2m_afirmar(lista_apilar(lista, &elemento) == EXITO,
+                 "Mensaje de exito al apilar en una pila vacia");
+
+    pa2m_afirmar(lista->nodo_inicio && lista->nodo_fin && lista->nodo_inicio == lista->nodo_fin,
+                 "La estructura de la lista se actualiza correctamente");
+
+    pa2m_afirmar(elemento == *(int*)lista->nodo_inicio->elemento,
+                 "Se apiló correctamente el elemento en la pila\n")
+
+    lista_destruir(lista);
+}
+
+void probar_apilar_lista_con_nodos () {
+    lista_t* lista = lista_crear();
+    int elemento_uno = 11, elemento_dos = 22;
+
+    insertar_n_elementos(lista, &elemento_uno, 5);
+
+    pa2m_afirmar(lista_apilar(lista, &elemento_dos) == EXITO,
+                 "Mensaje de exito al apilar en una pila con varios nodos");
+
+    pa2m_afirmar(elemento_dos == *(int*)lista->nodo_inicio->elemento,
+                 "Se apiló correctamente el elemento en la pila con varios nodos\n");
+
+    lista_destruir(lista);
+}
+
+void probar_apilar_varios_nodos () {
+    lista_t* lista = lista_crear();
+    int elemento_uno = 11, mensaje_uno, elemento_dos = 22, mensaje_dos, elemento_tres = 33, mensaje_tres;
+    bool posicion_uno, posicion_dos, posicion_tres;
+
+    mensaje_uno = lista_apilar(lista, &elemento_uno);
+    mensaje_dos = lista_apilar(lista, &elemento_dos);
+    mensaje_tres = lista_apilar(lista, &elemento_tres);
+
+    pa2m_afirmar(mensaje_uno == EXITO && mensaje_dos == EXITO && mensaje_tres == EXITO,
+                 "Mensaje de exito al apilar 3 elementos");
+
+    pa2m_afirmar(lista->nodo_inicio && lista->nodo_fin && lista->nodo_inicio != lista->nodo_fin,
+                 "La estructura de la pila se actualizó correctamente");
+
+    posicion_uno = elemento_uno == *(int*)lista->nodo_fin->elemento;
+    posicion_dos = elemento_dos == *(int*)lista->nodo_inicio->siguiente->elemento;
+    posicion_tres = elemento_tres == *(int*)lista->nodo_inicio->elemento;
+
+    pa2m_afirmar(posicion_uno && posicion_dos && posicion_tres,
+                 "Se apiló correctamente los 3 elementos en la pila\n");
+
+    lista_destruir(lista);
+}
+
 void probar_apilar_nodo () {
-     lista_t* lista = lista_crear();
-     int elemento_uno = 11, elemento_dos = 22, elemento_tres = 33;
 
-     pa2m_afirmar(lista_apilar(NULL, &elemento_uno) == ERROR,
-                  "Detecta que la lista es invalida");
+    probar_apilar_lista_invalida();
+    probar_apilar_lista_vacia();
+    probar_apilar_lista_con_nodos();
+    probar_apilar_varios_nodos();
 
-     lista_apilar(lista, &elemento_dos);
-     pa2m_afirmar(lista->nodo_inicio == lista->nodo_fin && lista->nodo_fin != NULL
-                  && *(int*)lista->nodo_inicio->elemento == elemento_dos,
-                  "Apila correctamente un elemento en lista vacia");
-
-     insertar_n_elementos(lista, &elemento_uno, 3);
-
-     lista_apilar(lista, &elemento_tres);
-     pa2m_afirmar(*(int*)lista->nodo_inicio->elemento == elemento_tres,
-                  "Apila correctamente un elemento al comienzo de la lista");
-
-     lista_destruir(lista);
 }
 
 void probar_encolar_nodo () {
