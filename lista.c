@@ -325,21 +325,20 @@ bool lista_iterador_tiene_siguiente(lista_iterador_t* iterador) {
     if (!iterador->lista)
         return false;
 
-    return iterador->corriente->siguiente != NULL;
+    return iterador->corriente;
 }
 
 bool lista_iterador_avanzar(lista_iterador_t* iterador) {
     if (!iterador)
         return false;
 
-    if (!lista_iterador_tiene_siguiente(iterador))
+    if (!iterador->corriente)
         return false;
 
     iterador->corriente = iterador->corriente->siguiente;
     return true;
 }
 
-// hay un error en la forma de leectura - CORREGIR
 void* lista_iterador_elemento_actual(lista_iterador_t* iterador) {
     if (!iterador)
         return NULL;
