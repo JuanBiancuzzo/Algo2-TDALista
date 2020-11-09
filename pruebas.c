@@ -244,25 +244,76 @@ void probar_apilar_nodo () {
 
 }
 
-void probar_encolar_nodo () {
+void probar_encolar_lista_invalida () {
+    int elemento = 11;
+
+    pa2m_afirmar(lista_encolar(NULL, &elemento) == ERROR,
+                 "Detecta que la cola es invalida\n");
+}
+
+void probar_encolar_lista_vacia () {
     lista_t* lista = lista_crear();
-    int elemento_uno = 11, elemento_dos = 22, elemento_tres = 33;
+    int elemento = 11;
 
-    pa2m_afirmar(lista_encolar(NULL, &elemento_uno) == ERROR,
-                 "Detecta que la lista es invalida");
+    pa2m_afirmar(lista_encolar(lista, &elemento) == EXITO,
+                 "Mensaje de exito al encolar en cola vacia");
 
-    lista_encolar(lista, &elemento_dos);
-    pa2m_afirmar(lista->nodo_inicio == lista->nodo_fin && lista->nodo_fin != NULL
-                 && *(int*)lista->nodo_inicio->elemento == elemento_dos,
-                 "Encola correctamente un elemento en lista vacia");
+    pa2m_afirmar(lista->nodo_inicio && lista->nodo_fin && lista->nodo_inicio == lista->nodo_fin,
+                 "Se actualiza la cola correctamente");
 
-    insertar_n_elementos(lista, &elemento_uno, 3);
-
-    lista_encolar(lista, &elemento_tres);
-    pa2m_afirmar(*(int*)lista->nodo_fin->elemento == elemento_tres,
-                 "Encola correctamente un elemento al final de la lista");
+    pa2m_afirmar(elemento == *(int*)lista->nodo_fin->elemento,
+                 "Se encoló correctamente el elemento en cola vacia\n");
 
     lista_destruir(lista);
+}
+
+void probar_encolar_lista_con_nodos () {
+    lista_t* lista = lista_crear();
+    int elemento_uno = 11, elemento_dos = 22;
+
+    insertar_n_elementos(lista, &elemento_uno, 5);
+
+    pa2m_afirmar(lista_encolar(lista, &elemento_dos) == EXITO,
+                 "Mensaje de exito al encolar en cola con varios nodos");
+
+    pa2m_afirmar(elemento_dos == *(int*)lista->nodo_fin->elemento,
+                "Se encoló correctamente el elemtno en cola con varios nodos\n");
+
+    lista_destruir(lista);
+}
+
+void probar_encolar_varios_nodos () {
+    lista_t* lista = lista_crear();
+    int elemento_uno = 11, mensaje_uno, elemento_dos = 22, mensaje_dos, elemento_tres = 33, mensaje_tres;
+    bool posicion_uno, posicion_dos, posicion_tres;
+
+    mensaje_uno = lista_encolar(lista, &elemento_uno);
+    mensaje_dos = lista_encolar(lista, &elemento_dos);
+    mensaje_tres = lista_encolar(lista, &elemento_tres);
+
+    pa2m_afirmar(mensaje_uno == EXITO && mensaje_dos == EXITO && mensaje_tres == EXITO,
+                 "Mensaje de exito al encolar los tres elementos en la cola");
+
+    pa2m_afirmar(lista->nodo_inicio && lista->nodo_fin && lista->nodo_inicio != lista->nodo_fin,
+                 "Se actualiza la cola correctamente");
+
+    posicion_uno = elemento_uno == *(int*)lista->nodo_inicio->elemento;
+    posicion_dos = elemento_dos == *(int*)lista->nodo_inicio->siguiente->elemento;
+    posicion_tres = elemento_tres == *(int*)lista->nodo_fin->elemento;
+
+    pa2m_afirmar(posicion_uno && posicion_dos && posicion_tres,
+                 "SE encoló correctamente los tres elementos en la cola\n");
+
+    lista_destruir(lista);
+}
+
+void probar_encolar_nodo () {
+
+    probar_encolar_lista_invalida();
+    probar_encolar_lista_vacia();
+    probar_encolar_lista_con_nodos();
+    probar_encolar_varios_nodos();
+
 }
 
 void probar_elemento_en_posicion_mostrar () {
