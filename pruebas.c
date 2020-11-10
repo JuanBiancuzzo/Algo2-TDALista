@@ -302,7 +302,7 @@ void probar_encolar_varios_nodos () {
     posicion_tres = elemento_tres == *(int*)lista->nodo_fin->elemento;
 
     pa2m_afirmar(posicion_uno && posicion_dos && posicion_tres,
-                 "SE encoló correctamente los tres elementos en la cola\n");
+                 "Se encoló correctamente los tres elementos en la cola\n");
 
     lista_destruir(lista);
 }
@@ -316,30 +316,55 @@ void probar_encolar_nodo () {
 
 }
 
-void probar_elemento_en_posicion_mostrar () {
+void probar_elemento_en_posicion_valores_invalidos () {
     lista_t* lista = lista_crear();
-    int elemento_uno = 11, elemento_dos = 22, elemento_tres = 33;
 
-    pa2m_afirmar(lista_elemento_en_posicion(NULL, 4) == NULL,
-                 "Detecta que la lista es invalida");
+    pa2m_afirmar(lista_elemento_en_posicion(NULL, 0) == NULL,
+                 "Detecta correctamente que la lista es invalida");
 
-    pa2m_afirmar(lista_elemento_en_posicion(lista, 4) == NULL,
-                 "Detecta que la lista esta vacia");
-
-    lista_insertar(lista, &elemento_uno); // posicion 0
-    lista_insertar(lista, &elemento_dos); // posicion 1
-    lista_insertar(lista, &elemento_tres);// posicion 2
-
-    pa2m_afirmar(*(int*)lista_elemento_en_posicion(lista, 0) == elemento_uno,
-                 "Devuelve correctamente el primer elemento");
-
-    pa2m_afirmar(*(int*)lista_elemento_en_posicion(lista, 2) == elemento_tres,
-                 "Devuelve correctamente el ultimo elemento");
-
-    pa2m_afirmar(lista_elemento_en_posicion(lista, 9) == NULL,
-                 "Detecta que la posicion es invalida");
+    pa2m_afirmar(lista_elemento_en_posicion(lista, 1) == NULL,
+                 "Detecta correctamente que la posicion es invalida\n");
 
     lista_destruir(lista);
+}
+
+void probar_elemento_en_posicion_lista_con_un_nodo () {
+    lista_t* lista = lista_crear();
+    int elemento = 11;
+
+    lista_insertar(lista, &elemento);
+
+    pa2m_afirmar(elemento == *(int*)lista_elemento_en_posicion(lista, 0),
+                 "Encuentra la posición correcta en la lista de un nodo\n");
+
+    lista_destruir(lista);
+}
+
+void probar_elemento_en_posicion_lista_con_varios_nodos () {
+    lista_t* lista = lista_crear();
+    int elemento_uno = 11, elemento_dos = 22, elemento_tres = 33;
+    bool posicion_uno, posicion_dos, posicion_tres;
+
+    lista_encolar(lista, &elemento_uno);
+    lista_encolar(lista, &elemento_dos);
+    lista_encolar(lista, &elemento_tres);
+
+    posicion_uno = elemento_uno == *(int*)lista_elemento_en_posicion(lista, 0);
+    posicion_dos = elemento_dos == *(int*)lista_elemento_en_posicion(lista, 1);
+    posicion_tres = elemento_tres == *(int*)lista_elemento_en_posicion(lista, 2);
+
+    pa2m_afirmar(posicion_uno && posicion_dos && posicion_tres,
+                 "Encuentra las tes posiciones correctas en la lista con varios nodos\n");
+
+    lista_destruir(lista);
+}
+
+void probar_elemento_en_posicion_mostrar () {
+
+    probar_elemento_en_posicion_valores_invalidos();
+    probar_elemento_en_posicion_lista_con_un_nodo();
+    probar_elemento_en_posicion_lista_con_varios_nodos();
+
 }
 
 void probar_ultimo_mostrar () {
