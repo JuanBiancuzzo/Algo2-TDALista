@@ -458,28 +458,49 @@ void probar_tope_mostrar () {
 
 }
 
-void probar_primero_mostar () {
+void probar_primero_lista_invalida_vacia () {
+    lista_t* lista = lista_crear();
+
+    pa2m_afirmar(lista_primero(NULL) == NULL,
+                 "Detecta correctamente que la cola invalida");
+
+    pa2m_afirmar(lista_primero(lista) == NULL,
+                 "Detecta correctamente que la cola esta vacia\n");
+
+    lista_destruir(lista);
+}
+
+void probar_primero_lista_un_nodo () {
+    lista_t* lista = lista_crear();
+    int elemento = 11;
+
+    lista_insertar(lista, &elemento);
+
+    pa2m_afirmar(elemento == *(int*)lista_primero(lista),
+                 "Encuentra el elemento del primero en una cola con un nodo\n");
+
+    lista_destruir(lista);
+}
+
+void probar_primero_lista_varios_nodos () {
     lista_t* lista = lista_crear();
     int elemento_uno = 11, elemento_dos = 22;
 
-    pa2m_afirmar(lista_primero(NULL) == NULL,
-                 "Detecta que la lista es invalida");
+    lista_encolar(lista, &elemento_uno);
+    lista_encolar(lista, &elemento_dos);
 
-    pa2m_afirmar(lista_primero(lista) == NULL,
-                 "Detecta que la lista esta vacia");
-
-    lista_apilar(lista, &elemento_uno);
-
-    pa2m_afirmar(*(int*)lista_primero(lista) == elemento_uno,
-                 "Devuelve correctamente el primer elemento, cuando es el único");
-
-    lista_apilar(lista, &elemento_uno);
-    lista_apilar(lista, &elemento_dos);
-
-    pa2m_afirmar(*(int*)lista_primero(lista) == elemento_dos,
-                 "Devuelve correctamente el primer elemento, cuando hay más de uno");
+    pa2m_afirmar(elemento_uno == *(int*)lista_primero(lista),
+                 "Encuentra el elemento del primero en una cola con varios nodos\n");
 
     lista_destruir(lista);
+}
+
+void probar_primero_mostar () {
+
+    probar_primero_lista_invalida_vacia();
+    probar_primero_lista_un_nodo();
+    probar_primero_lista_varios_nodos();
+
 }
 
 void probar_borrar_de_posicion_nodo () {
