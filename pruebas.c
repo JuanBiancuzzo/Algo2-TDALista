@@ -220,7 +220,7 @@ void probar_apilar_varios_nodos () {
     mensaje_tres = lista_apilar(lista, &elemento_tres);
 
     pa2m_afirmar(mensaje_uno == EXITO && mensaje_dos == EXITO && mensaje_tres == EXITO,
-                 "Mensaje de exito al apilar 3 elementos");
+                 "Mensaje de exito al apilar tres elementos");
 
     pa2m_afirmar(lista->nodo_inicio && lista->nodo_fin && lista->nodo_inicio != lista->nodo_fin,
                  "La estructura de la pila se actualizó correctamente");
@@ -230,7 +230,7 @@ void probar_apilar_varios_nodos () {
     posicion_tres = elemento_tres == *(int*)lista->nodo_inicio->elemento;
 
     pa2m_afirmar(posicion_uno && posicion_dos && posicion_tres,
-                 "Se apiló correctamente los 3 elementos en la pila\n");
+                 "Se apiló correctamente los tres elementos en la pila\n");
 
     lista_destruir(lista);
 }
@@ -354,7 +354,7 @@ void probar_elemento_en_posicion_lista_con_varios_nodos () {
     posicion_tres = elemento_tres == *(int*)lista_elemento_en_posicion(lista, 2);
 
     pa2m_afirmar(posicion_uno && posicion_dos && posicion_tres,
-                 "Encuentra las tes posiciones correctas en la lista con varios nodos\n");
+                 "Encuentra las tres posiciones correctas en la lista con varios nodos\n");
 
     lista_destruir(lista);
 }
@@ -367,28 +367,50 @@ void probar_elemento_en_posicion_mostrar () {
 
 }
 
-void probar_ultimo_mostrar () {
+void probar_ultimo_lista_invalida_vacia () {
+    lista_t* lista = lista_crear();
+
+    pa2m_afirmar(lista_ultimo(NULL) == NULL,
+                 "Detecta correctamente una lista invalida");
+
+    pa2m_afirmar(lista_ultimo(lista) == NULL,
+                 "Detecta correctamente una lista vacia\n");
+
+    lista_destruir(lista);
+}
+
+void probar_ultimo_lista_un_nodo () {
+    lista_t* lista = lista_crear();
+    int elemento = 11;
+
+    lista_insertar(lista, &elemento);
+
+    pa2m_afirmar(elemento == *(int*)lista_ultimo(lista),
+                 "Encuentra el último elemento en lista de un nodo\n");
+
+    lista_destruir(lista);
+}
+
+void probar_ultimo_lista_varios_nodos () {
     lista_t* lista = lista_crear();
     int elemento_uno = 11, elemento_dos = 22;
 
-    pa2m_afirmar(lista_ultimo(NULL) == NULL,
-                 "Detecta que la lista es invalida");
+    insertar_n_elementos(lista, &elemento_uno, 5);
 
-    pa2m_afirmar(lista_ultimo(lista) == NULL,
-                 "Detecta que la lista esta vacia");
+    lista_encolar(lista, &elemento_dos);
 
-    lista_insertar(lista, &elemento_uno);
-
-    pa2m_afirmar(*(int*)lista_ultimo(lista) == elemento_uno,
-                 "Devuelve correctamente el ultimo elemento, cuando es el único");
-
-    lista_insertar(lista, &elemento_uno);
-    lista_insertar(lista, &elemento_dos);
-
-    pa2m_afirmar(*(int*)lista_ultimo(lista) == elemento_dos,
-                 "Devuelve correctamente el ultimo elemento, cuando hay más de uno");
+    pa2m_afirmar(elemento_dos == *(int*)lista_ultimo(lista),
+                 "Encuentra el último elemento en lista con varios nodos\n");
 
     lista_destruir(lista);
+}
+
+void probar_ultimo_mostrar () {
+
+    probar_ultimo_lista_invalida_vacia();
+    probar_ultimo_lista_un_nodo();
+    probar_ultimo_lista_varios_nodos();
+
 }
 
 void probar_tope_mostrar () {
