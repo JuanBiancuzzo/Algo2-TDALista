@@ -413,28 +413,49 @@ void probar_ultimo_mostrar () {
 
 }
 
-void probar_tope_mostrar () {
+void probar_tope_lista_invalida_vacia () {
     lista_t* lista = lista_crear();
-    int elemento_uno = 11, elemento_dos = 22;
 
     pa2m_afirmar(lista_tope(NULL) == NULL,
-                 "Detecta que la lista es invalida");
+                 "Detecta correctamente que la pila invalida");
 
     pa2m_afirmar(lista_tope(lista) == NULL,
-                 "Detecta que la lista esta vacia");
+                 "Detecta correctamente que la pila esta vacia\n");
 
-    lista_apilar(lista, &elemento_uno);
+    lista_destruir(lista);
+}
 
-    pa2m_afirmar(*(int*)lista_tope(lista) == elemento_uno,
-                 "Devuelve correctamente el primer elemento, cuando es el único");
+void probar_tope_lista_un_nodo () {
+    lista_t* lista = lista_crear();
+    int elemento = 11;
+
+    lista_insertar(lista, &elemento);
+
+    pa2m_afirmar(elemento == *(int*)lista_tope(lista),
+                 "Encuentra el elemento del tope en una pila con un nodo\n");
+
+    lista_destruir(lista);
+}
+
+void probar_tope_lista_varios_nodos () {
+    lista_t* lista = lista_crear();
+    int elemento_uno = 11, elemento_dos = 22;
 
     lista_apilar(lista, &elemento_uno);
     lista_apilar(lista, &elemento_dos);
 
-    pa2m_afirmar(*(int*)lista_tope(lista) == elemento_dos,
-                 "Devuelve correctamente el primer elemento, cuando hay más de uno");
+    pa2m_afirmar(elemento_dos == *(int*)lista_tope(lista),
+                 "Encuentra el elemento del tope en una pila con varios nodos\n");
 
     lista_destruir(lista);
+}
+
+void probar_tope_mostrar () {
+
+    probar_tope_lista_invalida_vacia();
+    probar_tope_lista_un_nodo();
+    probar_tope_lista_varios_nodos();
+
 }
 
 void probar_primero_mostar () {
