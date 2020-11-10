@@ -503,33 +503,70 @@ void probar_primero_mostar () {
 
 }
 
-void probar_borrar_de_posicion_nodo () {
+void probar_borrar_de_posicion_valores_invalidos () {
     lista_t* lista = lista_crear();
-    int elemento_uno = 11, elemento_dos = 22, elemento_tres = 33;
+    int elemento = 11;
 
-    pa2m_afirmar(lista_borrar_de_posicion(NULL, 2) == ERROR,
-                  "Detecta que la lista es invalida");
+    pa2m_afirmar(lista_borrar_de_posicion(NULL, 1) == ERROR,
+                 "Detecta correctamente que la lista es invalida");
 
-    pa2m_afirmar(lista_borrar_de_posicion(lista, 2) == ERROR,
-                  "Detecta que la lista esta vacia");
+    pa2m_afirmar(lista_borrar_de_posicion(lista, 1) == ERROR,
+                 "Detecta correctamente que la lista esta vacia");
 
-    lista_insertar(lista, &elemento_uno); // posicion 0
-    lista_insertar(lista, &elemento_dos); // posicion 1
-    lista_insertar(lista, &elemento_tres);// posicion 2
+    lista_insertar(lista, &elemento);
 
-    lista_borrar_de_posicion(lista, 1);
-    pa2m_afirmar(lista->nodo_inicio->siguiente == lista->nodo_fin,
-                 "Eliminó correctamente el nodo en una posicion especifica");
+    pa2m_afirmar(lista_borrar_de_posicion(lista, 5) == EXITO,
+                 "Mensaje de exito al intentar eliminar una posicion invalida");
 
-    lista_borrar_de_posicion(lista, 8);
-    pa2m_afirmar(lista->nodo_inicio == lista->nodo_fin && *(int*)lista->nodo_inicio->elemento == elemento_uno,
-                 "Eliminó correctamente el nodo en una posicion inexistente");
-
-    lista_borrar_de_posicion(lista, 0);
-    pa2m_afirmar(lista_vacia(lista) && lista->nodo_inicio == NULL && lista->nodo_fin == NULL,
-                 "Eliminó correctamente el ultimo nodo");
+    pa2m_afirmar(!lista->nodo_inicio && !lista->nodo_fin,
+                 "La estructura de la lista se actualizó correctamente eliminando el ultimó nodo\n");
 
     lista_destruir(lista);
+}
+
+void probar_borrar_de_posicion_lista_un_nodo () {
+    lista_t* lista = lista_crear();
+    int elemento = 11;
+
+    lista_insertar(lista, &elemento);
+
+    pa2m_afirmar(lista_borrar_de_posicion(lista, 0) == EXITO,
+                 "Mensaje de exito al borrar nodo de una lista con un solo nodo");
+
+    pa2m_afirmar(!lista->nodo_inicio && !lista->nodo_fin,
+                 "La estructura de la lista se actualizó correctamente eliminando el nodo\n");
+
+    lista_destruir(lista);
+}
+
+void probar_borrar_de_posicion_lista_varios_nodos () {
+    lista_t* lista = lista_crear();
+    int elemento_uno = 11, elemento_dos = 22;
+    bool eliminado = false;
+
+    insertar_n_elementos(lista, &elemento_uno, 5);
+    lista_insertar_en_posicion(lista, &elemento_dos, 3);
+
+    pa2m_afirmar(lista_borrar_de_posicion(lista, 3) == EXITO,
+                 "Mensaje de exito al borrar nodo de una lista con varios nodos");
+
+    for (size_t i = 0; i < lista_elementos(lista); i++) {
+        if (elemento_dos != *(int*)lista_elemento_en_posicion(lista, i))
+            eliminado = true;
+    }
+
+    pa2m_afirmar(eliminado,
+                 "Se elimina correctamente el nodo de una lista con varios nodos\n");
+
+    lista_destruir(lista);
+}
+
+void probar_borrar_de_posicion_nodo () {
+
+    probar_borrar_de_posicion_valores_invalidos();
+    probar_borrar_de_posicion_lista_un_nodo();
+    probar_borrar_de_posicion_lista_varios_nodos();
+
 }
 
 void probar_desapilar_nodo () {
