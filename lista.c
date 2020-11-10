@@ -121,18 +121,19 @@ int lista_borrar_de_posicion(lista_t* lista, size_t posicion) {
 
     nodo_t* nodo_aux;
 
-    if (posicion == 0) {
+    if (nodo == lista->nodo_inicio) {
         nodo_aux = nodo;
         lista->nodo_inicio = nodo->siguiente;
     } else {
         nodo_aux = nodo->siguiente;
-        nodo->siguiente = nodo_aux->siguiente;
+        if (nodo->siguiente == lista->nodo_fin)
+            lista->nodo_fin = nodo;
+        else
+            nodo->siguiente = nodo_aux->siguiente;
     }
 
-    free(nodo_aux);
 
-    if (posicion > lista->cantidad)
-        lista->nodo_fin = nodo;
+    free(nodo_aux);
 
     lista->cantidad--;
 
