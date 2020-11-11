@@ -796,7 +796,23 @@ bool puedo_seguir_dos (void* elemento, void* contexto) {
     return true;
 }
 
-void probar_iterador_con_cada_elemento () {
+void probar_iterador_interno_valores_invalidos () {
+    lista_t* lista = lista_crear();
+    bool (*funcion) (void*, void*) = puedo_seguir_uno;
+
+    pa2m_afirmar(lista_con_cada_elemento(NULL, funcion, NULL) == 0,
+                 "Detecta correctamente que la lista es invalida");
+
+    pa2m_afirmar(lista_con_cada_elemento(lista, NULL, NULL) == 0,
+                 "Detecta correctamente que la funcion es invalida");
+
+    pa2m_afirmar(lista_con_cada_elemento(lista, funcion, NULL) == 0,
+                 "Detecta correctamente que la lista esta vacia\n");
+
+    lista_destruir(lista);
+}
+
+void probar_iterador_interno_lista_varios_nodos () {
     lista_t* lista = lista_crear();
     int elemento = 11, contador = 0;
     size_t cantidad = 5;
@@ -804,16 +820,7 @@ void probar_iterador_con_cada_elemento () {
     bool (*funcion_uno) (void*, void*) = puedo_seguir_uno;
     bool (*funcion_dos) (void*, void*) = puedo_seguir_dos;
 
-    pa2m_afirmar(lista_con_cada_elemento(NULL, funcion_uno, NULL) == 0,
-                 "Detecta correctamente que la lista es invalida");
-
-    pa2m_afirmar(lista_con_cada_elemento(lista, funcion_uno, NULL) == 0,
-                 "Detecta correctamente que la lista esta vacia");
-
     insertar_n_elementos(lista, &elemento, cantidad);
-
-    pa2m_afirmar(lista_con_cada_elemento(lista, NULL, NULL) == 0,
-                 "Detecta correctamente que la funcion es invalida");
 
     pa2m_afirmar(lista_con_cada_elemento(lista, funcion_uno, NULL) == cantidad,
                  "Detecta correctamente que la lista tiene 5 elementos");
@@ -826,9 +833,16 @@ void probar_iterador_con_cada_elemento () {
 
 
     pa2m_afirmar(lista_con_cada_elemento(lista, funcion_dos, &contador) == 5,
-                 "Detecta correctamente que la funcion_dos le pide que se detenga")
+                 "Detecta correctamente que la funcion_dos le pide que se detenga\n")
 
     lista_destruir(lista);
+}
+
+void probar_iterador_interno () {
+
+    probar_iterador_interno_valores_invalidos();
+    probar_iterador_interno_lista_varios_nodos();
+
 }
 
 int main() {
@@ -873,7 +887,7 @@ int main() {
     printf("\n * Probar iterador_avanzar (iterador externo):\n");
     probar_iterador_avanzar();
     printf("\n * Probar iterador_con_cada_elemento (iterador interno):\n");
-    probar_iterador_con_cada_elemento();
+    probar_iterador_interno();
 
     pa2m_mostrar_reporte();
 }
