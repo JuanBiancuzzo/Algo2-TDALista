@@ -518,7 +518,7 @@ void probar_borrar_de_posicion_valores_invalidos () {
     pa2m_afirmar(lista_borrar_de_posicion(lista, 5) == EXITO,
                  "Mensaje de exito al intentar eliminar una posicion invalida");
 
-    pa2m_afirmar(!lista->nodo_inicio && !lista->nodo_fin,
+    pa2m_afirmar(!lista->nodo_inicio && !lista->nodo_fin && lista_vacia(lista),
                  "La estructura de la lista se actualizó correctamente eliminando el ultimó nodo\n");
 
     lista_destruir(lista);
@@ -533,7 +533,7 @@ void probar_borrar_de_posicion_lista_un_nodo () {
     pa2m_afirmar(lista_borrar_de_posicion(lista, 0) == EXITO,
                  "Mensaje de exito al borrar nodo de una lista con un solo nodo");
 
-    pa2m_afirmar(!lista->nodo_inicio && !lista->nodo_fin,
+    pa2m_afirmar(!lista->nodo_inicio && !lista->nodo_fin && lista_vacia(lista),
                  "La estructura de la lista se actualizó correctamente eliminando el nodo\n");
 
     lista_destruir(lista);
