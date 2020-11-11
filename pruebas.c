@@ -621,31 +621,56 @@ void probar_desapilar_nodo () {
 
 }
 
-void probar_desencolar_nodo () {
-    lista_t* lista = lista_crear();
-    int elemento_uno = 11, elemento_dos = 22, elemento_tres = 33;
+void probar_desencolar_lista_invalida () {
 
     pa2m_afirmar(lista_desencolar(NULL) == ERROR,
-                  "Detecta que la lista es invalida");
+                 "Detecta correctamente que la cola es invalida\n");
 
-    pa2m_afirmar(lista_desencolar(lista) == ERROR,
-                  "Detecta que la lista esta vacia");
+}
 
-    lista_insertar(lista, &elemento_uno);
+void probar_desencolar_lista_un_nodo () {
+    lista_t* lista = lista_crear();
+    int elemento = 11;
 
-    lista_desencolar(lista);
-    pa2m_afirmar(lista->nodo_inicio == NULL && lista->nodo_fin == NULL,
-                 "Elimina el elemento unico correctamente");
+    lista_insertar(lista, &elemento);
 
-    lista_insertar(lista, &elemento_uno); // posicion 0
-    lista_insertar(lista, &elemento_dos); // posicion 1
-    lista_insertar(lista, &elemento_tres);// posicion 2
+    pa2m_afirmar(lista_desencolar(lista) == EXITO,
+                 "Mensaje de exito al borrar un nodo en una cola de un nodo");
 
-    lista_desencolar(lista);
-    pa2m_afirmar(lista->nodo_fin->elemento == lista_ultimo(lista),
-                 "Borra correctamente el ultimo elemento");
+    pa2m_afirmar(!lista->nodo_inicio && !lista->nodo_fin && lista_vacia(lista),
+                 "Se eliminó correctamente el nodo\n");
 
     lista_destruir(lista);
+}
+
+void probar_desencolar_lista_varios_nodos () {
+    lista_t* lista = lista_crear();
+    int elemento_uno = 11, elemento_dos = 22;
+    bool eliminado = true;
+
+    insertar_n_elementos(lista, &elemento_uno, 5);
+    lista_apilar(lista, &elemento_dos);
+
+    pa2m_afirmar(lista_desencolar(lista) == EXITO,
+                 "Mensaje de exito al borrar un nodo en una cola con varios nodos");
+
+    for (size_t i = 0; i < lista_elementos(lista); i++) {
+        if (elemento_dos == *(int*)lista_elemento_en_posicion(lista, i))
+            eliminado = false;
+    }
+
+    pa2m_afirmar(eliminado,
+                 "Se eliminó correctamente el nodo\n");
+
+    lista_destruir(lista);
+}
+
+void probar_desencolar_nodo () {
+
+    probar_desencolar_lista_invalida();
+    probar_desencolar_lista_un_nodo();
+    probar_desencolar_lista_varios_nodos();
+
 }
 
 void probar_iterador_crear () {
