@@ -742,26 +742,46 @@ void probar_iterador_tiene_siguiente () {
 
 }
 
-void probar_iterador_avanzar () {
+void probar_iterador_avanzaar_valores_invalidos () {
+    lista_t* lista = lista_crear();
+    lista_iterador_t* iterador = lista_iterador_crear(lista);
+
+    pa2m_afirmar(!lista_iterador_avanzar(NULL),
+                 "Reconoce correctamente que el iterador es invalido");
+
+    pa2m_afirmar(!lista_iterador_avanzar(iterador),
+                 "Reconoce correctamente que la lista esta vacia\n");
+
+    lista_iterador_destruir(iterador);
+    lista_destruir(lista);
+}
+
+void probar_iterador_avanzar_lista_dos_nodos () {
     lista_t* lista = lista_crear();
     int elemento_uno = 11, elemento_dos = 22;
-
     lista_insertar(lista, &elemento_uno);
     lista_insertar(lista, &elemento_dos);
 
     lista_iterador_t* iterador = lista_iterador_crear(lista);
 
-    pa2m_afirmar(lista_iterador_avanzar(NULL) == false,
-                 "Detecta correctamente que el iterador es invalido");
+    pa2m_afirmar(lista_iterador_avanzar(iterador),
+                 "Mensaje de exito al avanzar al proximo nodo");
 
-    pa2m_afirmar(lista_iterador_avanzar(iterador) == true && *(int*)iterador->corriente->elemento == elemento_dos,
-                 "Se mueve correctamente a la siguiente posicion");
+    pa2m_afirmar(elemento_dos == *(int*)iterador->corriente->elemento,
+                 "Se posiciona correctamente en el nodo final");
 
-    pa2m_afirmar(lista_iterador_avanzar(iterador) == false,
-                 "No se mueve cuando no hay siguiente posición");
+    pa2m_afirmar(lista_iterador_avanzar(iterador) && !lista_iterador_avanzar(iterador),
+                 "Logra avanzar desde el último nodo y después detecta correctamente que no puede avanzar\n");
 
     lista_iterador_destruir(iterador);
     lista_destruir(lista);
+}
+
+void probar_iterador_avanzar () {
+
+    probar_iterador_avanzaar_valores_invalidos();
+    probar_iterador_avanzar_lista_dos_nodos();
+
 }
 
 bool puedo_seguir_uno (void* elemento, void* contexto) {
