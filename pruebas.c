@@ -702,28 +702,44 @@ void probar_iterador_crear () {
 
 }
 
-void probar_iterador_tiene_siguiente () {
+void probar_iterador_tiene_siguiente_valores_invalidos () {
     lista_t* lista = lista_crear();
-    int elemento_uno = 11, elemento_dos = 22;
-
-    lista_insertar(lista, &elemento_uno);
-    lista_insertar(lista, &elemento_dos);
-
     lista_iterador_t* iterador = lista_iterador_crear(lista);
 
-    pa2m_afirmar(lista_iterador_tiene_siguiente(NULL) == false,
-                 "Detecta un iterador invalido");
+    pa2m_afirmar(!lista_iterador_tiene_siguiente(NULL),
+                 "Reconoce correctamente que el iterador es invalido");
 
-    pa2m_afirmar(lista_iterador_tiene_siguiente(iterador) == true,
-                 "Detecta correctamente que tiene siguiente");
-
-    iterador->corriente = lista->nodo_inicio->siguiente;
-
-    pa2m_afirmar(lista_iterador_tiene_siguiente(iterador) == false,
-                 "Detecta correctamente que no tiene siguiente");
+    pa2m_afirmar(!lista_iterador_tiene_siguiente(iterador),
+                 "Reconoce correctamente que la lista esta vacia\n");
 
     lista_iterador_destruir(iterador);
     lista_destruir(lista);
+}
+
+void probar_iterador_tiene_siguiente_lista_con_nodo () {
+    lista_t* lista = lista_crear();
+    int elemento = 11;
+    lista_insertar(lista, &elemento);
+
+    lista_iterador_t* iterador = lista_iterador_crear(lista);
+
+    pa2m_afirmar(lista_iterador_tiene_siguiente(iterador),
+                 "Reconoce correctamente que tiene siguiente");
+
+    iterador->corriente = iterador->corriente->siguiente;
+
+    pa2m_afirmar(!lista_iterador_tiene_siguiente(iterador),
+                 "Reconoce correctamente que no tiene siguiente\n");
+
+    lista_iterador_destruir(iterador);
+    lista_destruir(lista);
+}
+
+void probar_iterador_tiene_siguiente () {
+
+    probar_iterador_tiene_siguiente_valores_invalidos();
+    probar_iterador_tiene_siguiente_lista_con_nodo();
+
 }
 
 void probar_iterador_avanzar () {
