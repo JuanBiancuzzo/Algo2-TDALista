@@ -542,7 +542,7 @@ void probar_borrar_de_posicion_lista_un_nodo () {
 void probar_borrar_de_posicion_lista_varios_nodos () {
     lista_t* lista = lista_crear();
     int elemento_uno = 11, elemento_dos = 22;
-    bool eliminado = false;
+    bool eliminado = true;
 
     insertar_n_elementos(lista, &elemento_uno, 5);
     lista_insertar_en_posicion(lista, &elemento_dos, 3);
@@ -551,8 +551,8 @@ void probar_borrar_de_posicion_lista_varios_nodos () {
                  "Mensaje de exito al borrar nodo de una lista con varios nodos");
 
     for (size_t i = 0; i < lista_elementos(lista); i++) {
-        if (elemento_dos != *(int*)lista_elemento_en_posicion(lista, i))
-            eliminado = true;
+        if (elemento_dos == *(int*)lista_elemento_en_posicion(lista, i))
+            eliminado = false;
     }
 
     pa2m_afirmar(eliminado,
@@ -594,7 +594,7 @@ void probar_desapilar_lista_un_nodo () {
 void probar_desapilar_lista_varios_nodos () {
     lista_t* lista = lista_crear();
     int elemento_uno = 11, elemento_dos = 22;
-    bool eliminado = false;
+    bool eliminado = true;
 
     insertar_n_elementos(lista, &elemento_uno, 5);
     lista_apilar(lista, &elemento_dos);
@@ -603,8 +603,8 @@ void probar_desapilar_lista_varios_nodos () {
                  "Mensaje de exito al borrar un nodo en una pila con varios nodos");
 
     for (size_t i = 0; i < lista_elementos(lista); i++) {
-        if (elemento_dos != *(int*)lista_elemento_en_posicion(lista, i))
-            eliminado = true;
+        if (elemento_dos == *(int*)lista_elemento_en_posicion(lista, i))
+            eliminado = false;
     }
 
     pa2m_afirmar(eliminado,
