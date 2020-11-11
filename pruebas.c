@@ -673,21 +673,33 @@ void probar_desencolar_nodo () {
 
 }
 
-void probar_iterador_crear () {
-    lista_t* lista = lista_crear();
-    int elemento = 11;
+void probar_iterador_lista_invalida () {
 
     pa2m_afirmar(lista_iterador_crear(NULL) == NULL,
-                 "Detecta una lista invalida");
+                 "Detecta correctamente que se le pasa una lista invalida\n");
+
+}
+
+void probar_iterador_inicializado () {
+    lista_t* lista = lista_crear();
+    int elemento = 11;
 
     lista_insertar(lista, &elemento);
 
     lista_iterador_t* iterador = lista_iterador_crear(lista);
-    pa2m_afirmar(iterador->lista == lista && *(int*)iterador->corriente->elemento == elemento,
-                 "Crea un iterador inicializado correctamente");
+
+    pa2m_afirmar(iterador->lista == lista && elemento == *(int*)iterador->corriente->elemento,
+                 "Se inicializa correctamente el iterador de una lista\n");
 
     lista_iterador_destruir(iterador);
     lista_destruir(lista);
+}
+
+void probar_iterador_crear () {
+
+    probar_iterador_lista_invalida();
+    probar_iterador_inicializado();
+
 }
 
 void probar_iterador_tiene_siguiente () {
