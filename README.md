@@ -27,3 +27,10 @@ También con makefile podemos hacer lo mismo con la linea
 ``` bash
 make valgrind
 ```
+
+## Detalles de la implementación
+
+### Funciones crear
+
+En este TDA tenenemos la creación de la lista y del iterador externo, ambas funcionan de forma muy parecida. Primero lo que se hace es revisar los parametros, en el caso del iterador, revisar que la lista que se pasa sea valida. Ahora sabiendo que los parametros pasados son validos se reserva memoría en el heap la cual verificamos que sea valido el puntero, para inicializar la lista o el iterador con los valores correspondientes.
+
