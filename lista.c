@@ -44,32 +44,32 @@ int lista_insertar_en_posicion(lista_t* lista, void* elemento, size_t posicion) 
     if (!lista)
         return ERROR;
 
-    nodo_t* nodo = malloc(sizeof(nodo_t));
-
-    if (!nodo)
-        return ERROR;
-
-    nodo->elemento = elemento;
-    nodo_t* nodo_aux = lista->nodo_inicio;
-    size_t contador = 1;
-
-    while (contador < posicion && contador < lista->cantidad) {
-        nodo_aux = nodo_aux->siguiente;
-        contador++;
-    }
-
-    if (posicion == 0 || lista_vacia(lista)) {
-        nodo->siguiente = nodo_aux;
-        lista->nodo_inicio = nodo;
+    if (posicion == 0) {
+        lista_apilar(lista, elemento);
+    } else if (posicion >= lista->cantidad) {
+        lista_encolar(lista, elemento);
     } else {
+
+        nodo_t* nodo = malloc(sizeof(nodo_t));
+
+        if (!nodo)
+            return ERROR;
+
+        nodo->elemento = elemento;
+
+        nodo_t* nodo_aux = lista->nodo_inicio;
+        size_t contador = 1;
+
+        while (contador < posicion && contador < lista->cantidad) {
+            nodo_aux = nodo_aux->siguiente;
+            contador++;
+        }
+
         nodo->siguiente = nodo_aux->siguiente;
         nodo_aux->siguiente = nodo;
+
+        lista->cantidad++;
     }
-
-    if (posicion >= lista->cantidad)
-        lista->nodo_fin = nodo;
-
-    lista->cantidad++;
 
     return EXITO;
 }
