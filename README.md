@@ -64,4 +64,8 @@ En los tres casos utilizamos un puntero que es parte de la lista, para el lista_
 
 En el caso de la función lista_ultimo tenía la posibilidad de recorrer toda la lista, o usar el puntero, y elegí usar el puntero porque no solo su complejidad es O(1) sino que también ayuda a la lectura de la función.
 
+#### Elemento en posición
+
+A diferencia de las otras 3 funciones, en esta tenemos que recorrer la lista para llegar a la posición que se quiera mostar. En este caso no es necesario utilizar las funciones de lista_primero y lista_ultimo, como análogo a lo que hicimos en insertar en posicion, porque no en este caso no hay diferencia en buscar la primera, última o alguna posición en el medio.
+
 
