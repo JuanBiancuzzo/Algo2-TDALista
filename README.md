@@ -36,7 +36,7 @@ En este TDA tenenemos la creación de la lista y del iterador externo, ambas fun
 
 ### Funciones de inserción
 
-En las 4 funciones, insertar, insertar en posición, apilar y encolar, lo primero que se hace es revisar que la lista que se pasa como parametro sea valido, ya que si la lista no es valida no podremos avanzar.
+En las 4 funciones, insertar, apilar, encolar y insertar en posición, lo primero que se hace es revisar que la lista que se pasa como parametro sea valido, ya que si la lista no es valida no podremos avanzar.
 
 #### Insertar
 
@@ -44,6 +44,9 @@ Necesitamos colocar el nodo al final de la lista entonces nos aprovechamos del p
 
 Usé el puntero al último nodo en vez de recorrer la lista porque la complejidad de usar el puntero sería de O(1) en comparación a O(n) al recorrer la lista, con la única ventaja de no tener la excepción de la lista vacia.
 
+#### Apilar y encolar
+
+En ambos casos utilizo los punteros que tiene la lista para posicionarme correctamente. En el caso de apilar queremos insertar un nodo al principio de la lista, entonces el siguiente del nodo que quiero insertar tiene que ser el primer elemento de la lista, haciendo que el nodo que insertamos es el primer nodo de la lista, por lo que apilamos ese nodo. En el caso de encolar queremos insertar un nodo al final de la lista, entonces el siguiente del último nodo tiene que ser el nodo que queremos insertar, haciendo que el nodo que insertamos sea el último nodo en la lista, por lo que apilamos ese nodo.
 #### Insertar en posición
 
 Como su nombre lo indica se necesita insertar un nodo en la posición que se especifique, en este caso siempre vamos a recorrer la lista hasta encontrar la posición anterior al lugar donde vamos a insertar, que para facilitar la comprención llamaremos nodo auxiliar. El nodo que vamos a insertar le asignamos como siguiente el siguiente del nodo auxiliar, y ahora le asignamos al siguiente del nodo auxiliar el nodo que queremos insertar.
