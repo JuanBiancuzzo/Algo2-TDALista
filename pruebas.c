@@ -673,6 +673,62 @@ void probar_desencolar_nodo () {
 
 }
 
+void probar_borrar_valores_invalidos() {
+    lista_t* lista = lista_crear();
+
+    pa2m_afirmar(lista_borrar(NULL) == ERROR,
+                 "Detecta correctamente que la lista es invalida");
+
+    pa2m_afirmar(lista_borrar(lista) == ERROR,
+                 "Detecta correctamente que la lista esta vacia\n");
+
+    lista_destruir(lista);
+}
+
+void probar_borrar_lista_un_nodo() {
+    lista_t* lista = lista_crear();
+    int elemento = 11;
+    lista_insertar(lista, &elemento);
+
+    pa2m_afirmar(lista_borrar(lista) == EXITO,
+                 "Mensaje de exito al eliminar elemento de la lista con un solo nodo");
+
+    pa2m_afirmar(!lista->nodo_inicio && !lista->nodo_fin && lista_vacia(lista),
+                 "Se elimina correctamente el nodo y actualiza la lista correctamente\n");
+
+    lista_destruir(lista);
+}
+
+void probar_borrar_lista_varios_nodos() {
+    lista_t* lista = lista_crear();
+    int elemento_uno = 11, elemento_dos = 22;
+    bool eliminado = true;
+
+    insertar_n_elementos(lista, &elemento_uno, 5);
+    lista_insertar(lista, &elemento_dos);
+
+    pa2m_afirmar(lista_borrar(lista) == EXITO,
+                 "Mensaje de exito al eliminar elemento de la lista con varios nodos");
+
+    for (size_t i = 0; i < lista_elementos(lista); i++) {
+        if (elemento_dos == *(int*)lista_elemento_en_posicion(lista, i))
+            eliminado = false;
+    }
+
+    pa2m_afirmar(eliminado,
+                 "Se elimina correctamente el nodo de la lista con varios nodos\n");
+
+    lista_destruir(lista);
+}
+
+void probar_borrar_nodo () {
+
+    probar_borrar_valores_invalidos();
+    probar_borrar_lista_un_nodo();
+    probar_borrar_lista_varios_nodos();
+
+}
+
 void probar_iterador_lista_invalida () {
 
     pa2m_afirmar(lista_iterador_crear(NULL) == NULL,
@@ -878,6 +934,8 @@ int main() {
     probar_desapilar_nodo();
     printf("\n * Probar lista_desencolar:\n");
     probar_desencolar_nodo();
+    printf("\n * Probar lista_borrar:\n");
+    probar_borrar_nodo();
 
     pa2m_nuevo_grupo("Pruebas de iteradores");
     printf(" * Probar iterador_crear (iterador externo):\n");
