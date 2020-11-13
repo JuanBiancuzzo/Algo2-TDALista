@@ -111,35 +111,28 @@ int lista_borrar_de_posicion(lista_t* lista, size_t posicion) {
     if (lista_vacia(lista))
         return ERROR;
 
-    nodo_t* nodo = lista->nodo_inicio;
-    size_t contador = 1;
-
-    while (contador < posicion && contador + 1 < lista->cantidad) {
-        nodo = nodo->siguiente;
-        contador++;
-    }
-
-    nodo_t* nodo_aux;
-
-    if (nodo == lista->nodo_inicio) {
-        nodo_aux = nodo;
-        lista->nodo_inicio = nodo->siguiente;
+    if (posicion == 0) {
+        lista_desapilar(lista);
+    } else if (posicion >= lista->cantidad){
+        lista_borrar(lista);
     } else {
+
+        nodo_t* nodo = lista->nodo_inicio;
+        size_t contador = 1;
+
+        while (contador < posicion && contador + 1 < lista->cantidad) {
+            nodo = nodo->siguiente;
+            contador++;
+        }
+
+        nodo_t* nodo_aux;
         nodo_aux = nodo->siguiente;
-        if (nodo->siguiente == lista->nodo_fin)
-            lista->nodo_fin = nodo;
-        else
-            nodo->siguiente = nodo_aux->siguiente;
-    }
+        nodo->siguiente = nodo_aux->siguiente;
 
+        free(nodo_aux);
 
-    free(nodo_aux);
+        lista->cantidad--;
 
-    lista->cantidad--;
-
-    if (lista_vacia(lista)) {
-        lista->nodo_inicio = NULL;
-        lista->nodo_fin = NULL;
     }
 
     return EXITO;
