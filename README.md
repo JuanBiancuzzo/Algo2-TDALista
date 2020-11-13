@@ -46,4 +46,8 @@ Usé el puntero al último nodo en vez de recorrer la lista porque la complejida
 
 #### Insertar en posición
 
+Como su nombre lo indica se necesita insertar un nodo en la posición que se especifique, en este caso siempre vamos a recorrer la lista hasta encontrar la posición anterior al lugar donde vamos a insertar, que para facilitar la comprención llamaremos nodo auxiliar. El nodo que vamos a insertar le asignamos como siguiente el siguiente del nodo auxiliar, y ahora le asignamos al siguiente del nodo auxiliar el nodo que queremos insertar.
+Hay situaciones donde la posición en la que queremos insertar no tiene anterior, como lo es insertarlo antes del primer nodo, y por lo que tuve que hacer una excepción donde el nodo que vamos a insertar le asignamos como siguiente el nodo auxiliar.
+
+En este caso a diferencia del insertar, elegí recorrer toda la lista ya que no hay un puntero que apunte directamente a la posicion donde quiero insertar el nodo nuevo, excepto en las posiciones después del primer nodo y el último. Entonces opté por una complejidad O(n) al recorrer la lista y una lectura del código más simple ya que agregar los casos donde si la posición es después del primer nodo o el último complicaria la lectura.
 
