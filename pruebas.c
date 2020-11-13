@@ -569,11 +569,16 @@ void probar_borrar_de_posicion_nodo () {
 
 }
 
-void probar_desapilar_lista_invalida () {
+void probar_desapilar_valores_invalidos () {
+    lista_t* lista = lista_crear();
 
     pa2m_afirmar(lista_desapilar(NULL) == ERROR,
-                 "Detecta correctamente que la pila es invalida\n");
+                 "Detecta correctamente que la pila es invalida");
 
+    pa2m_afirmar(lista_desapilar(lista) == ERROR,
+                 "Detecta correctamente que la pila esta vacia\n");
+
+    lista_destruir(lista);
 }
 
 void probar_desapilar_lista_un_nodo () {
@@ -615,17 +620,22 @@ void probar_desapilar_lista_varios_nodos () {
 
 void probar_desapilar_nodo () {
 
-    probar_desapilar_lista_invalida();
+    probar_desapilar_valores_invalidos();
     probar_desapilar_lista_un_nodo();
     probar_desapilar_lista_varios_nodos();
 
 }
 
-void probar_desencolar_lista_invalida () {
+void probar_desencolar_valores_invalidos () {
+    lista_t* lista = lista_crear();
 
     pa2m_afirmar(lista_desencolar(NULL) == ERROR,
-                 "Detecta correctamente que la cola es invalida\n");
+                 "Detecta correctamente que la cola es invalida");
 
+    pa2m_afirmar(lista_desencolar(lista) == ERROR,
+                 "Detecta correctamente que la cola esta vacia\n");
+
+    lista_destruir(lista);
 }
 
 void probar_desencolar_lista_un_nodo () {
@@ -667,7 +677,7 @@ void probar_desencolar_lista_varios_nodos () {
 
 void probar_desencolar_nodo () {
 
-    probar_desencolar_lista_invalida();
+    probar_desencolar_valores_invalidos();
     probar_desencolar_lista_un_nodo();
     probar_desencolar_lista_varios_nodos();
 
