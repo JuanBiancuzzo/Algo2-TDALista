@@ -54,5 +54,14 @@ Como su nombre lo indica se necesita insertar un nodo en la posición que se esp
 
 Elegí utilizar las funciones apilar y encolar ya que la complejidad usandolas o no era O(n) ya que en ambos casos tendré que recorrer la lista. Además usandolas me da la ventaja de no tener que preocuparme por los casos de insertarlo al principio o al final, que agregarían complejidad a la lectura del código ya que estos casos, especialmente el insertar al pricipio, son dificiles de trabajar cuando se tiene que recorrer la lista.
 
+### Funciones mostrar elemento
+
+En las 4 funciones, lista_tope, lista_ultimo, lista_primero y lista_elemento_en_posicion, lo primero que se hace es revisar que la lista que se pasa como parametro sea valido, ya que si la lista no es valida no podremos mostrar nada.
+
+#### Tope, último y primero
+
+En los tres casos utilizamos un puntero que es parte de la lista, para el lista_tope y lista_primero utilizamos el puntero al primer nodo y devolviendo su elemento, y para lista_ultimo usamos el puntero al último nodo y devolviendo su elemento.
+
+En el caso de la función lista_ultimo tenía la posibilidad de recorrer toda la lista, o usar el puntero, y elegí usar el puntero porque no solo su complejidad es O(1) sino que también ayuda a la lectura de la función.
 
 
