@@ -92,7 +92,7 @@ En las 3 funciones, lista_iterador_tiene_siguiente, lista_iterador_avanzar y lis
 
 #### Tiene siguiente
 
-Esta función se fija si la posición en la que esta no es null, porque si no es null significa que podría avanzar al siguiente nodo.
+Esta función se fija si el nodo en el que estamos parado es valido, porque si es valido significa que podría avanzar al siguiente nodo.
 
 #### Avanzar 
 
@@ -111,6 +111,12 @@ Lo que se hace principalmente es recorrer la lista y en cada nodo usar la funci�
 ## Conceptos teóricos
 
 ### Listas
+
+Se puede entender a una lista como un conjunto de elementos vinculados de forma lineal. Si lo vemos con un ejemplo puede quedar más claro, supongamos que tenemos que comprar varias cosas pero son tantas que va a ser mejor anotarlas, entonces uno saca una hoja para anotar y pone como primer cosa a coprar "pan", abajo de ese pone "agua", y así sigue poniendo las cosas que tiene que comprar. Ahora esto es una lista, las cosas que va a comprar son los elementos de la lista, y el hecho de que cada elemento este abajo de otro elemento haciendo una linea hacia abajo, mustra que estan vinculados de forma lineal.
+
+Ahora hablando de las operaciones que tiene una lista, porque no se puede definir una lista sin sus operaciones. Que son la creación de la lista, que su análogo al ejemplo de antes sería sacar una hoja para anotar; si esta vacia la lista, que sería fijarse si no hay elementos; insertar en la lista, que sería agregar un objeto que se quiere comprar a cualquier parte de la lista; eliminar en la lista, que sería borrar un objeto; ver elemento, que sería leer que objeto pusiste en la lista; destruir la lista, que sería tirar la hoja a la basura (o reciclar) porque ya no la vas a usar.
+
+En nuestro ejemplo de la lista de compra sería un ejemplo de una lista doblemente enlazada porque uno puede ir de un objeto de compra hacia arriba o abajo para ver otro objeto de compra. Pero esto no es la única forma de tener una lista, existen la lista simplemente enlazadas donde solamente podes ver el siguiente elemento en la lista. Hay que enteder que aunque el ejemplo de la lista de compra es bastante parecido a como es una lista, en una lista solo podes ver un elemento a la vez y el hecho de que sea simple o doblemente enlazada implica como uno se puede mover en esa lista, es decir, si es simplemente enlazada solo se puede avanzar pero en la doblemente enlazada podes avanzar o retroceder.
 
 ### Pilas y colas
 
