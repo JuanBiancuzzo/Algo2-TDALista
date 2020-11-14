@@ -68,4 +68,13 @@ En el caso de la función lista_ultimo tenía la posibilidad de recorrer toda la
 
 A diferencia de las otras 3 funciones, en esta tenemos que recorrer la lista para llegar a la posición que se quiera mostar. En este caso no es necesario utilizar las funciones de lista_primero y lista_ultimo, como análogo a lo que hicimos en insertar en posicion, porque no en este caso no hay diferencia en buscar la primera, última o alguna posición en el medio.
 
+### Funciones borrar
+
+En las 4 funciones, lista_borrar, lista_desapilar, lista_desencolar y lista_borrar_de_posicion, lo primero que se hace es revisar que la lista que se pasa como paramentro sea valido y que no esté vacia, ya que si la lista no es valida no podremos eliminar nada.
+
+#### Borrar
+
+El objetivo de la función es eliminar el último nodo, lamentablemente no podemos usar el puntero al último nodo, entonces recorremos la lista hasta el anteúltimo, liberamos el último y usamos el anteúltimo como último. La única excepción para esta función es cuando la lista esta vacia, en ese caso se libera el único nodo que hay y los punteros al primero y al último son null.
+
+
 
