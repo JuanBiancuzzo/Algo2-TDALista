@@ -836,8 +836,8 @@ void probar_iterador_avanzar_lista_dos_nodos () {
     pa2m_afirmar(elemento_dos == *(int*)iterador->corriente->elemento,
                  "Se posiciona correctamente en el nodo final");
 
-    pa2m_afirmar(lista_iterador_avanzar(iterador) && !lista_iterador_avanzar(iterador),
-                 "Logra avanzar desde el último nodo y después detecta correctamente que no puede avanzar\n");
+    pa2m_afirmar(!lista_iterador_avanzar(iterador),
+                 "Logra detectar correctamente que ya esta en el último elemento\n");
 
     lista_iterador_destruir(iterador);
     lista_destruir(lista);
