@@ -92,9 +92,15 @@ En las 3 funciones, lista_iterador_tiene_siguiente, lista_iterador_avanzar y lis
 
 #### Tiene siguiente
 
+Esta función se fija si la posición en la que esta no es null, porque si no es null significa que podría avanzar al siguiente nodo.
+
 #### Avanzar 
 
+Comprobamos si tiene siguiente con al funcion lista_iterador_tiene_siguiente, si tiene avanzamos la corriente del iterador. En el caso de que terminemos en null devolvemos false, sino true.
+
 #### Elemento actual
+
+Comprobamos si estamos en un nodo valido, diferente a null, y devolvemos el elemento del nodo.
 
 ### Iterador interno
 

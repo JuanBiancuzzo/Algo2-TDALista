@@ -313,9 +313,6 @@ bool lista_iterador_tiene_siguiente(lista_iterador_t* iterador) {
     if (!iterador)
         return false;
 
-    if (!iterador->corriente)
-        return false;
-
     return iterador->corriente;
 }
 
@@ -323,7 +320,7 @@ bool lista_iterador_avanzar(lista_iterador_t* iterador) {
     if (!iterador)
         return false;
 
-    if (!iterador->corriente)
+    if (!lista_iterador_tiene_siguiente(iterador))
         return false;
 
     iterador->corriente = iterador->corriente->siguiente;
