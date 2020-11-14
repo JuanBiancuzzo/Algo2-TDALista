@@ -12,4 +12,4 @@ valgrind: build
 	$(VAL) $(VFLAGS) ./$(NAME)
 
 zip:
-	zip -r tda_lista *.c *.h extra makefile README.md tda_lista.pdf
+	zip -r tda_lista *.c *.h makefile README.md tda_lista.pdf
