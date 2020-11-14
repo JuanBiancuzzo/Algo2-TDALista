@@ -17,3 +17,6 @@ valgrind: build
 valgrind_mini: build_mini
 	clear
 	$(VAL) $(VFLAGS) ./$(NAME)
+
+zip:
+	zip -r tda_lista *.c *.h extra makefile README.md tda_lista.pdf

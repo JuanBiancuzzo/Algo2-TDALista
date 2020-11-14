@@ -327,7 +327,7 @@ bool lista_iterador_avanzar(lista_iterador_t* iterador) {
         return false;
 
     iterador->corriente = iterador->corriente->siguiente;
-    return true;
+    return iterador->corriente;
 }
 
 void* lista_iterador_elemento_actual(lista_iterador_t* iterador) {
