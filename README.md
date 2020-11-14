@@ -76,5 +76,14 @@ En las 4 funciones, lista_borrar, lista_desapilar, lista_desencolar y lista_borr
 
 El objetivo de la función es eliminar el último nodo, lamentablemente no podemos usar el puntero al último nodo, entonces recorremos la lista hasta el anteúltimo, liberamos el último y usamos el anteúltimo como último. La única excepción para esta función es cuando la lista esta vacia, en ese caso se libera el único nodo que hay y los punteros al primero y al último son null.
 
+#### Desapilar y desencolar
+
+Ambas funciones hacen lo mismo, sacar el primer nodo de la pila o cola, respectivamente, entonces la explicación es la misma para ambos. Usando el puntero al primer nodo, podemos liberarlo y luego el segundo nodo se convierte en primer nodo. 
+
+#### Borrar en posición
+
+En la función lista_borrar_de_posicion hacemos algo muy parecido a la función lista_insertar_en_posicion donde si la posición a borrar es primer nodo, usamos lista_desapilar, si la posición a borrar termina en el último nodo, usamos lista_borrar. Para los casos intermedio recorremos la lista hasta el anterior al que queremos borrar, liberamos el nodo a borrar, y unimos el nodo anterior con el nodo siguiente.
+
+En este caso, al igual que la función lista_insertar_en_posicion, decidí usar lista_borrar y lista_desapilar ya que la complejidad sigue siendo O(n) usandolas, y facilita la lectura del código.
 
 
