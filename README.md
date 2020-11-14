@@ -128,6 +128,12 @@ Con ese ejemplo se puede ver la importancia que se le da al tope en una pila que
 Para la cola la caracteristica fundamental es el manejo de la prioridad, la prioridad siempre esta en el primero que llego, y lo último que llega es lo menos importante. Un ejemplo es la fila del supermercado donde el primero en llegar es el primero en ser atendido y el último tiene que esperar su turno. Esto se también en las operaciones de la cola, donde al insertar es al final de la cola, pero cuando uno quiere ver el valor de un elemento, se ve el valor del primer elemento.
 
 ### Iteradores
+
+La funcionalidad de un iteradores es recorrer una lista, pila o cola, de forma independiente a la estructura que esta recorriendo. Esto hace que pueda ver el estado de toda la estructura sin tener que navegarla ya sea porque no es tan práctico como lo es en una lista, o directamente imposible por las operaciones de la estructura como la pila y cola.
     
 #### Diferencia entre interno y externo
+
+La funcionalidad es la misma por eso son iteradores, pero interno se refiere que tiene acceso a la estructura interna de la lista, pila o cola, que le da la ventaja que puede ser más directo en su forma de moverse en la estructura misma. Mientras que el iterador externo esta limitado a usar las mismas herramientas que usaria el usuario al interactuar con la lista, pila o cola.
+
+Esto hace que los iteradores internos sean menos complejos algoritmicamente que los iteradores externos, suponiendo que estan hechos de la forma más eficiente. Pero la desventaja que tiene un iterador interno sobre el externo, es que el interno tiene que vernír con la estructura, mientras que el externo no esta limitado a ese caso, haciendo que el externo aunque más complejo algoritmicamente más probable de usarse por el hecho que el mismo usuario puede crealo para esa situación.
 
