@@ -120,6 +120,13 @@ En nuestro ejemplo de la lista de compra sería un ejemplo de una lista doblemen
 
 ### Pilas y colas
 
+Al igual que la lista, la pila y la cola son un conjunto de elemento vinculados de forma lineal, pero cada uno tiene una caracteristica fundamental.
+
+Para la pila esta en la prioridad que se le da al tope de la pila, porque cuando se inserta un elemento se pone en el tope, si uno saca un elemento lo saca del tope, si quiere ver el elemento se ve el elemento del tope. Esta prioridad permite que si uno tiene que guardar elementos donde el último que entra tiene la mayor importancia. Un ejemplo de esto es por ejemplo si uno esta estudiando y esta leyendo un libro de matemática, y empieza a hablar de transformaciones lineales pero ese tema no lo sabes entonces dejas el libro y abris un libro donde explican las transformaciones lineales, pero ahora hablan de espacios vectoriales, entonces apilas el libro encima del anterior, y buscas un libro que expliquen espacios vectoriales. Por suerte se entiende todo lo que decia el libro entonces guardas el libro de espacios vectoriales en la biblioteca, y agarras el libro de transformaciones lineales, gracias a lo que leiste ahora podes entender ese libro y al terminar guardas el libro en la biblioteca. Por último, terminas de leer el último libro y lo guardas en la biblioteca. El libro que tenías en tus manos era el tope, y dejar los libros a un costado era el resto de la pila.
+Con ese ejemplo se puede ver la importancia que se le da al tope en una pila que es su caracteristica fundamental.
+
+Para la cola la caracteristica fundamental es el manejo de la prioridad, la prioridad siempre esta en el primero que llego, y lo último que llega es lo menos importante. Un ejemplo es la fila del supermercado donde el primero en llegar es el primero en ser atendido y el último tiene que esperar su turno. Esto se también en las operaciones de la cola, donde al insertar es al final de la cola, pero cuando uno quiere ver el valor de un elemento, se ve el valor del primer elemento.
+
 ### Iteradores
     
 #### Diferencia entre interno y externo
