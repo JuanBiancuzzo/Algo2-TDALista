@@ -86,4 +86,25 @@ En la función lista_borrar_de_posicion hacemos algo muy parecido a la función 
 
 En este caso, al igual que la función lista_insertar_en_posicion, decidí usar lista_borrar y lista_desapilar ya que la complejidad sigue siendo O(n) usandolas, y facilita la lectura del código.
 
+### Iterador externo
+
+En las 3 funciones, lista_iterador_tiene_siguiente, lista_iterador_avanzar y lista_iterador_elemento_actual, se verifica que el iterador es valido ya que si este no lo es no podremos hacer nada.
+
+#### Tiene siguiente
+
+#### Avanzar 
+
+#### Elemento actual
+
+### Iterador interno
+
+## Conceptos teóricos
+
+### Listas
+
+### Pilas y colas
+
+### Iteradores
+    
+#### Diferencia entre interno y externo
 
