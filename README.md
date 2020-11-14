@@ -104,6 +104,10 @@ Comprobamos si estamos en un nodo valido, diferente a null, y devolvemos el elem
 
 ### Iterador interno
 
+En este caso solo tenemos una sola función que es lista_con_cada_elemento, y lo primero que hacemos es verificar que la lista y la función que se pasa por parametro sean validos ya que sino no vamos a poder hacer nada.
+
+Lo que se hace principalmente es recorrer la lista y en cada nodo usar la función que se nos pasa por parametro con el elemento del nodo actual, y después devolvemos la cantidad de nodos que recorrimos.
+
 ## Conceptos teóricos
 
 ### Listas
